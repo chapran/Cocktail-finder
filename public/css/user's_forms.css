@@ -1,0 +1,187 @@
+.logIn_container{
+    margin-right: 5%;
+    float: right;
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    padding: 5px;
+    /*background-color: aqua;*/
+}
+.logIn_container > span{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.logIn_form input{
+    border-radius: 2px;
+    margin: 2px;
+}
+.logIn_form input[type = 'submit']{
+    padding: 3px 10px;
+    border: 1px solid #000000;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #0e96db;
+}
+.logIn_form input[type = 'submit']:focus{
+    outline: none;
+}
+.logIn_form input[type = 'submit']:active{
+    background-color: #1ed0e7;
+}
+.register_proposition{
+    margin-left: 7px;
+    font-size: .8em;
+}
+.register_proposition button{
+    font-weight: bold;
+    border: none;
+    background-color: initial;
+    color: #073fe7;
+}
+.register_proposition button:active{
+    color: #000;
+}
+
+.register_form_container {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    transition: 0.7s;
+}
+.register_form_container.hidden{
+    top: -100%;
+    display: initial;
+}
+
+.register {
+    position: absolute;
+    right: 0;
+    width: 500px;
+    margin: 30px;
+    padding: 10px;
+    border: 7px solid #2d75e7;
+    border-radius: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #444;
+    background-color: #F0F0F0;
+    box-shadow: 0 0 30px 0 #000;
+}
+
+.register h3 {
+    margin: 0 15px 20px;
+    border-bottom: 2px solid #2d75e7;
+    padding: 5px 10px 5px 0;
+    font-size: 1.1em;
+}
+
+.register div {
+    margin: 0 0 15px 0;
+    border: none;
+}
+
+label{
+    display: inline-block;
+    text-align: right;
+}
+
+.register label {
+    width: 25%;
+    margin: 10px;
+}
+
+.register input[type=text], .register input[type=password] {
+    width: 65%;
+    padding: 5px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.07);
+}
+
+.register input[type=text]:focus, .register input[type=password]:focus {
+    background: #FFFFFF;
+    /*outline: none;*/
+}
+
+.register .button {
+    position: relative;
+    left: 40%;
+    font-size: 1em;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #0502b9;
+    box-shadow: 0 1px 0 0 #16E7E3 inset;
+    background: #0e96db;
+    background: -webkit-linear-gradient(#16E7E3, #2d75e7);
+    background: -moz-linear-gradient(#16E7E3, #2d75e7);
+    background: -o-linear-gradient(#16E7E3, #2d75e7);
+    background: linear-gradient(#16E7E3, #2d75e7);
+}
+
+.register .button:hover {
+    background: -webkit-linear-gradient(#16E7E3, #2f97e7);
+    background: -moz-linear-gradient(#16E7E3, #2f97e7);
+    background: -o-linear-gradient(#16E7E3, #2f97e7);
+    background: linear-gradient(#16E7E3, #2f97e7);
+}
+
+/*.register .sep {*/
+/*border: 1px solid #2d75e7;*/
+/*position: relative;*/
+/*margin: 35px 20px;*/
+/*}*/
+
+/*.register .or {*/
+/*position: absolute;*/
+/*width: 50px;*/
+/*left: 50%;*/
+/*background: #F0F0F0;*/
+/*text-align: center;*/
+/*margin: -10px 0 0 -25px;*/
+/*line-height: 20px;*/
+/*}*/
+
+/*.register .connect {*/
+/*width: 400px;*/
+/*margin: 0 auto;*/
+/*text-align: center;*/
+/*}*/
+
+/*.register .social-buttons {*/
+/*display: inline-block;*/
+/*min-width: 150px;*/
+/*height: 50px;*/
+/*margin: 0 5px 10px;*/
+/*border-radius: 10px;*/
+/*text-shadow: 1px 1px 5px #000000;*/
+/*}*/
+
+/*.register .social-buttons a {*/
+/*display: block;*/
+/*height: 100%;*/
+/*text-decoration: none;*/
+/*color: #FFFFFF;*/
+/*padding: 10px 15px;*/
+/*}*/
+
+/*.register .social-buttons span {*/
+/*font-size: 30px;*/
+/*}*/
+
+
+.add_cocktail_form label{
+    width: 25%;
+    display: inline-block;
+    text-align: right;
+    padding: 10px;
+}
+
+#add_img_preview{
+    max-width: 100%;
+    border: 1px solid black;
+}
+
+.add_cocktail_form input{
+    display: inline;
+}

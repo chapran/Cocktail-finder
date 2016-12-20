@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Project</title>
+        <meta name="description" content="cocktail constructor">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+        <!--&lt;!&ndash; jQuery library &ndash;&gt;-->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+
+        <!--&lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">  <!-- about_page.css still exists!! -->
+        <!--<link rel="stylesheet" href="css/constructor.css">-->
+        <link rel="stylesheet" href="css/user's_forms.css">
+        <script src="https://use.fontawesome.com/8124c1aecb.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
+	    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+	            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header class="header_holder">
+            <div class='logIn_container'>
+                <span>Log in</span>
+                <form action="" class='logIn_form'>
+                    <input type="text" id="login" placeholder="username">
+                    <br>
+                    <input type="password" id="login_password" placeholder="password"><br>
+                    <input type="submit" value="Log in">
+                    <span class="register_proposition">Not registered yet?
+                        <button id="register_button">Sign up now!</button>
+                    </span>
+                </form>
+            </div>
+            <h1 class="main_header">Cocktail constructor</h1>
+            <span class='openbtn' onclick="openNav()">&#9776; open</span>
+        </header>
+        <aside class="sidenav">
+            <span class="closebtn" onclick="closeNav()">&times;</span>
+            <form class="search" >
+                <input type="text" name="search" placeholder="Search..">
+            </form>
+            <ul class="main_menu_list">
+                <li><span class="main_menu_links" id="about_page_button">About</span></li>
+                <li>
+                    <span class="main_menu_links" id="all_cocktails_button">Our catalogue</span>
+                    <ul class="catalogue_list">
+                        <li class="catalogue_list_items">
+                            <button onclick="showElems('baseSpirit')">Base spirit</button>
+                            <ul class="nav_menu_options hidden" id="baseSpirit">
+                                <li><span data-hash="Vodka">Vodka</span></li>
+                                <li><span data-hash="Bourbon|AmericanWhiskey">Bourbon | American Whiskey</span></li>
+                                <li><span data-hash="Tequila">Tequila</span></li>
+                                <li><span data-hash="Gin">Gin</span></li>
+                                <li><span data-hash="Liqueurs">Liqueurs</span></li>
+                                <li><span data-hash="Vermouth|AperitifWine">Vermouth | Aperitif Wine</span></li>
+                            </ul>
+                        </li>
+                        <li class="catalogue_list_items">
+                            <button onclick="showElems('cocktailType')">Cocktail Type</button>
+                            <ul class="nav_menu_options hidden" id="cocktailType">
+                                <li><span data-hash="Classics">Classics</span></li>
+                                <li><span data-hash="Margaritas">Margaritas</span></li>
+                                <li><span data-hash="Martinis">Martinis</span></li>
+                                <li><span data-hash="ModernClassics">Modern Classics</span></li>
+                                <li><span data-hash="Tiki|Tropical">Tiki | Tropical</span></li>
+                                <li><span data-hash="Shots">Shots</span></li>
+                            </ul>
+                        </li>
+                        <li class="catalogue_list_items"><button id="no-alc">Non-alcohol drinks</button></li>
+                    </ul>
+                </li>
+                <li class="additional_filter_li">
+                    <span>Coose additional ingredients for better filtering:</span>
+                    <form id="additional_filter_form">
+                        <fieldset>
+                        <script type="text/template" id="additional_filter">
+                            <%for(var i = 0; i < obj.length; i++) {%>
+                            <label><input type="checkbox" value="<%-obj[i]%>"><%-obj[i]%></label>
+                            <% }; %>
+                        </script>
+                        </fieldset>
+                        <input type="submit" value="Set ingredients">
+                    </form>
+                </li>
+                <!--<li><span class="main_menu_links" id="constructor_button">Constructor</span></li>-->
+            </ul>
+                <button class="add_cocktail_button">
+                    Add your own cocktail!
+                </button>
+        </aside>
+
+        <div class="register_form_container hidden">
+            <div class="register">
+                <h3>Create your account</h3>
+                <form id="reg-form">
+                    <div>
+                        <label for="first_name">First name</label>
+                        <input type="text" id="first_name" spellcheck="false" placeholder="John"/>
+                    </div>
+                    <div>
+                        <label for="last_name">Last name</label>
+                        <input type="text" id="last_name" spellcheck="false" placeholder="Smith"/>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" id="email" spellcheck="false" placeholder="example@email.com"/>
+                    </div>
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" spellcheck="false" placeholder="shree33"/>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password"/>
+                    </div>
+                    <div>
+                        <label for="password-again">Confirm password</label>
+                        <input type="password" id="password-again"/>
+                    </div>
+                    <div>
+                        <input type="submit" value="Create Account" id="create-account" class="button"/>
+                    </div>
+                </form>
+                <!--<div class="sep">-->
+                <!--<span class="or">OR</span>-->
+                <!--</div>-->
+                <!--<div class="connect">-->
+                <!--<div class="social-buttons facebook">-->
+                <!--<a href="#">-->
+                <!--<span>Facebook</span>-->
+                <!--</a>-->
+                <!--</div>-->
+                <!--<div class="social-buttons twitter">-->
+                <!--<a href="#">-->
+                <!--<span>Twitter</span>-->
+                <!--</a>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+
+        <div class="main_section">
+            <div class="content" id="all_cocktails">
+                <h2 id="cocktails_heading">All cocktails</h2>
+                <div class="filter">
+                    <div>
+                        <span>Sort:</span>
+                        <button name="name">Name</button>
+                        <button name="size">Size</button>
+                    </div>
+                    <div>
+                        <span>Filter:</span>
+                        <button>Ingredients quantity:</button>
+                        <label>
+                            <input id="i_quantity" type="range" min='1' max="9" oninput="changeRange('i_quantity')"
+                                   onchange="changeRange('i_quantity')">
+                        </label>
+                        <button>Strength</button>
+                    </div>
+                </div>
+                <div class='cocktails'>
+                    <div class='catalogue centered'>
+
+                        <!-- Template for the main catalogue -->
+
+                        <script type="text/template" id="all-cocktails-template">
+                            <%forEach(function (item) {%>
+                            <div class="single_drink" data-id="<%-item.id%>" data-size="<%-item.size%>">
+                                <div class="wrap_image">
+                                    <img src="<%-item.image%>" alt="<%-item.name%> picture">
+                                </div>
+                                <div class="info_container">
+                                    <span><%-item.name%></span>
+                                </div>
+                            </div>
+                            <% }); %>
+                        </script>
+
+                        <!--End of template-->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content hidden centered" id="about_page">
+                <article>
+                    <h1>Welcome to cocktail constructor!</h1>
+                    <h2>
+                        About our Website
+                    </h2>
+                    <p>
+                        Cocktail Constructor is web-resouce where any fan of exotic drinks, mixes of different flavors,
+                        or
+                        just experimenter can get all the information which may be necessary about spirits, adds, types
+                        of
+                        drinks etc.
+                    </p>
+                    <p>
+                        Here you can find information about your favorite drink and its preparation method, learn more
+                        about
+                        options of cocktails with certain ingredients, and choose a suitable recipe.
+                    </p>
+                    <p>
+                        Our page represents a collection of the greatest world-known cocktails, and there is the
+                        possibility
+                        of using the election of ingredients that are available to you at the moment to determine for
+                        which
+                        of the drinks you have everything necessary today.
+                    </p>
+                    <h2>Join us in social networks:</h2>
+                    <ul class="social_networks">
+                        <li class="sn_list_items"><a href="https://www.facebook.com/"><img
+                                src="img/icons/social_networks/1480288825_square-facebook.png" alt="FBicon">
+                            Facebook</a></li>
+                        <li class="sn_list_items"><a href="https://twitter.com/"><img
+                                src="img/icons/social_networks/1480288840_square-twitter.png" alt="TWicon"> Twitter</a>
+                        </li>
+                        <li class="sn_list_items"><a href="https://vk.com/"><img
+                                src="img/icons/social_networks/1480288985_vkontakte.png" alt="VKicon"> VKontakte</a>
+                        </li>
+                        <li class="sn_list_items"><a href="https://www.instagram.com/"><img
+                                src="img/icons/social_networks/1480288781_instagram-logo-color.png" alt="Instaicon">
+                            Instagram</a></li>
+                        <li class="sn_list_items"><a href="https://www.youtube.com/"><img
+                                src="img/icons/social_networks/1480288854_youtube.png" alt="YTicon"> YouTube</a></li>
+                        <li class="sn_list_items"><a href="https://www.flickr.com/"><img
+                                src="img/icons/social_networks/1480346135_Flickr.png" alt="FLicon"> Flickr</a></li>
+                    </ul>
+                    <p>
+                        <span style="font-size: 1.5em; color: red">Attention!</span>
+                        By browsing this site, you confirm that you are over 18 years old. Otherwise, leave the resource
+                        immediately.
+                    </p>
+                </article>
+            </div>      <!-- about.html still exists!! -->
+
+            <div class="content hidden centered" id="add_cocktail">
+                <h1>Add your own cocktail here!</h1>
+                <h3>Please fill in the form to add a cocktail to our database</h3>
+                <form enctype="multipart/form-data" class="add_cocktail_form">
+                    <fieldset>
+                        <label for="add_name">Cocktail Name:</label>
+                        <input type="text" name="name" id="add_name"> <br>
+                        <label for="add_image">Please, upload a picture of your cocktail here:</label>
+                        <input type="file" name="image" id="add_image"> <br>
+                        <label for="add_img_preview">Image preview:</label>
+                        <img id='add_img_preview' src=""/><br>
+                        <label for="add_about">Type some information about your cocktail here:</label>
+                        <textarea name="about" id="add_about" rows="3" cols="30"></textarea>
+                    </fieldset>
+                    <fieldset>Ingredients of your cocktail: <br>
+                        <label for="add_ingr1">Ingredient:</label>
+                        <input type="text" name="ingr" id="add_ingr1"> <br>
+                        <label for="add_quantity1">Quantity (if any...):</label>
+                        <input type="number" name="quantity" id="add_quantity1">
+                    </fieldset>
+                    <fieldset><label for="add_glass">Select glass type:</label>
+                        <select name="glass" id="add_glass">
+                            <option>...</option>
+                            <option value="Rocks">Rocks</option>
+                            <option value="Cocktail">Cocktail</option>
+                            <option value="Shot">Shot</option>
+                        </select> <br>
+                        <label for="add_details">Place for some preparation details (if any...):</label>
+                        <textarea name="details" id="add_details" rows="3" cols="30"></textarea>
+                    </fieldset>
+                    <br>
+                    <input type="submit" value="Add cocktail">
+                </form>
+            </div>
+        </div>
+
+        <div class="selected_cocktail_holder hidden">
+            <div class="selected_cocktail"></div>
+
+            <!-- Template for the selected cocktail -->
+
+            <script type="text/template" id="single_cocktail_template">
+                <div class="selected_cocktail_image"><img src="<%-image%>" alt="<%-name%> image"></div>
+                <div class="selected_cocktail_details">
+                    <div>
+                        <h3 style="text-transform: uppercase">ABOUT THE <%-name%> COCKTAIL</h3>
+                        <%about.forEach(function (item) {%>
+                        <p><%-item%></p>
+                        <% });%>
+                    </div>
+                    <div id="ingredients">
+                        <h3>Ingredients:</h3>
+                        <table>
+                            <%ingredients.forEach(function (item) {%>
+                            <tr>
+                                <td><%-item.quantity%></td>
+                                <td><%-item.ingr%></td>
+                            </tr>
+                            <% });%>
+                        </table>
+                        <div id="glass">
+                            <h3>Glass:</h3>
+                            <span><%-glass%></span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="details">How-to-make details</span>
+                        <%details.forEach(function (item) {%>
+                        <p><%-item%></p>
+                        <% });%>
+                    </div>
+                    <i class="fa fa-window-close fa-2x closebtn" aria-hidden="true"></i>
+                </div>
+            </script>
+
+            <!--End of template-->
+
+        </div>
+
+        <footer>
+                <div class="left_footer_container">
+                    <p class="copyright">Copyright &#169; Cocktail constructor 2016</p>
+                    <p>By browsing this site, you confirm that you are over 18 years old.
+                        Otherwise, leave the resource immediately.</p>
+                </div>
+                <div class="right_footer_container">
+                    <span>Join us in social networks:</span>
+                    <a href='#'><i class="fa fa-facebook fa-2x fa-fw"></i></a>
+                    <a href='#'><i class="fa fa-twitter fa-2x fa-fw"></i></a>
+                    <a href='#'><i class="fa fa-vk fa-2x fa-fw"></i></a>
+                    <a href='#'><i class="fa fa-instagram fa-2x fa-fw"></i></a>
+                    <a href='#'><i class="fa fa-youtube-play fa-2x fa-fw"></i></a>
+                    <a href='#'><i class="fa fa-flickr fa-2x fa-fw"></i></a>
+                </div>
+            </footer>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+    </body>
+</html>

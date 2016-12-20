@@ -1,0 +1,390 @@
+[
+  {
+    "id": 1,
+    "search_categories": {
+      "baseSpirit": [
+        "Gin",
+        "Vermouth|AperitifWine"
+      ],
+      "cocktailType": [
+        "Classics",
+        "Martinis"
+      ]
+    },
+    "name": "Dry Martini",
+    "image": "img/cocktails_images/Dry-Martini.jpg",
+    "about": ["The Dry Martini is a classic cocktail that, like a tailored suit, is timeless. Although the original of the tipple is unclear, the Dry Martini has maintained a place in cocktail history due to being easy to use and endlessly sophisticated. Elegant for the fancy and boozy for the heavy-handed, this potation is truly the everyman’s cocktail."],
+    "ingredients": [
+      {
+        "quantity": "75 ml",
+        "ingr": "Beefeater Gin"
+      },
+      {
+        "quantity": "15 ml",
+        "ingr": "Dry vermouth"
+      },
+      {
+        "quantity": "1 dash",
+        "ingr": "Orange bitters"
+      }
+    ],
+    "glass": "Cocktail",
+    "details": ["Add all the ingredients to a mixing glass and fill with ice.",
+      "Stir until very cold and strain into a chilled cocktail glass.",
+      "Garnish with a lemon twist."
+    ]
+  },
+  {
+    "id": 2,
+    "search_categories": {
+      "baseSpirit": ["Gin", "Vodka"],
+      "cocktailType":["Classics"]
+    },
+    "name": "Vesper",
+    "image": "img/cocktails_images/vesper-720x720-article.jpg",
+    "about": ["Pay tribute to 007 by mixing up his signature Vesper cocktail. The drink first appeared in Ian Fleming’s 1953 novel Casino Royale when Bond asked for “Three measures of Gordon’s, one of vodka, half a measure of Kina Lillet. Shake it very well until it’s ice-cold, then add a large thin slice of lemon peel. Got it?”"],
+    "ingredients": [
+      {
+        "quantity": "90 ml",
+        "ingr": "Plymouth gin"
+      },
+      {
+        "quantity": "30 ml",
+        "ingr": "Absolut Vodka"
+      },
+      {
+        "quantity": "15 ml",
+        "ingr": "Lillet Blanc"
+      }
+    ],
+    "glass": "Cocktail",
+    "details": ["Add all the ingredients to a mixing glass and fill with ice.",
+      "Stir, and strain into a chilled cocktail glass.",
+      "Twist a slice of lemon peel over the drink, rub along the rim of the glass and drop it in."
+    ]
+  },
+  {
+    "id": 3,
+    "search_categories": {
+      "baseSpirit":["Tequila"],
+      "cocktailType":["ModernClassics"]
+    },
+    "name": "Sparkler",
+    "image": "img/cocktails_images/Sparkler-newest1.jpg",
+    "about": ["Make any day a celebration with this festive cocktail."],
+    "ingredients": [
+      {
+        "quantity": "30 ml",
+        "ingr": "Don Julio Blanco Tequila"
+      },
+      {
+        "quantity": "splash",
+        "ingr": "Simple syrup"
+      },
+      {
+        "quantity": "150 ml",
+        "ingr": "Champagne"
+      }
+    ],
+    "glass": "Champagne flute",
+    "details": ["Add all the ingredients to a Champagne flute.",
+      "Garnish with a strawberry slice."
+    ]
+  },
+  {
+    "id": 4,
+    "search_categories": {
+      "baseSpirit":["Bourbon|AmericanWhiskey"],
+      "cocktailType":["Classics"]
+    },
+    "name": "Bourbon Rickey",
+    "image": "img/cocktails_images/Bourbon-Rickey.jpg",
+    "about": ["Though its cousin the Gin Rickey is more common today, this classic cocktail recipe can also be made with bourbon."],
+    "ingredients": [
+      {
+        "quantity": "45 ml",
+        "ingr": "Bourbon"
+      },
+      {
+        "quantity": "half",
+        "ingr": "Lime"
+      },
+      {
+        "quantity": "45 ml",
+        "ingr": "Club soda"
+      }
+    ],
+    "glass": "Highball",
+    "details": ["Fill a highball glass with cracked ice.",
+      "Squeeze the lime half into the glass and drop it in.",
+      "Add the bourbon and fill with club soda.",
+      "Stir briefly to combine."
+    ]
+  },
+  {
+    "id": 5,
+    "search_categories": {
+      "baseSpirit":["Tequila"],
+      "cocktailType":["Classics", "Margaritas"]
+    },
+    "name": "Margarita",
+    "image": "img/cocktails_images/margarita-rocks-salt-720sq.jpg",
+    "about": [
+      "The Margarita is one of the most popular cocktails in North America—for good reason. Combining the tang of lime and the sweetness of orange liqueur with the distinctive strength of tequila, our classic Margarita strikes all of the right keys.",
+      "Although many people reach for premade sour mix, we highly recommend using fresh lime juice. The end result is—let’s face it—superior.",
+      "When talking Margaritas, it’s easy to get lost in stories about who invented the drink or get mired in debates over salt versus no salt; blended or frozen; triple sec, Cointreau or Grand-Marnier. In our opinion, this version is the tried-and-true recipe for the best Margarita you can make. Memorize it, and you’ll always impress."
+    ],
+    "ingredients": [
+      {
+        "quantity": "20 ml",
+        "ingr": "Freshly squeezed lime juice"
+      },
+      {
+        "quantity": "30 ml",
+        "ingr": "Cointreau, triple sec, or another orange liqueur"
+      },
+      {
+        "quantity": "45 ml",
+        "ingr": "Blanco tequila"
+      },
+      {
+        "quantity": "",
+        "ingr": "Kosher salt (optional)"
+      }
+    ],
+    "glass": "Cocktail or rocks",
+    "details": [
+      "Add the ingredients to a shaker and fill with ice.",
+      "Shake well and strain into a chilled cocktail glass or rocks glass filled with fresh ice.",
+      "Garnish with a lime wheel.",
+      "For a slightly sweeter drink, add a dash of agave syrup (one part water, two parts agave nectar) before shaking.)."
+    ]
+  },
+  {
+    "id": 6,
+    "search_categories": {
+      "baseSpirit":["Liqueurs"],
+      "cocktailType":["Shots"]
+    },
+    "name": "B-52",
+    "image": "img/cocktails_images/b-52.jpg",
+    "about": ["Believed to have originated in the 1970 by a bartender and fan of the iconic band, the B-52 is classic guilty pleasure armed with three liqueurs. Make this layered shooter in seconds and impress all your friends."],
+    "ingredients": [
+      {
+        "quantity": "10 ml",
+        "ingr": "Kahlua"
+      },
+      {
+        "quantity": "10 ml",
+        "ingr": "Baileys"
+      },
+      {
+        "quantity": "10 ml",
+        "ingr": "Grand Marnier"
+      }
+    ],
+    "glass": "Shot",
+    "details": [
+      "Layer the three spirits in a shot glass in the order that they're listed."
+    ]
+  },
+  {
+    "id": 7,
+    "search_categories": {
+      "baseSpirit":["Vodka"],
+      "cocktailType":["Shots"]
+    },
+    "name": "Kamikaze",
+    "image": "img/cocktails_images/kamikaze.jpg",
+    "about": ["Born in the 1970s during the days of disco, the Kamikaze is an easy-to-make shooter that’s perfect for knocking back quickly and getting the party started. While there are many variations of this pre-game favorite, this rendition has a citrus-dominatiing flavor that will have you back on the dance floor in no time. No chaser needed."],
+    "ingredients": [
+      {
+        "quantity": "45 ml",
+        "ingr": "Vodka"
+      },
+      {
+        "quantity": "20 ml",
+        "ingr": "Triple sec"
+      },
+      {
+        "quantity": "20 ml",
+        "ingr": "Lime juice"
+      }
+    ],
+    "glass": "Cocktail or shot",
+    "details": ["Add all the ingredients to a shaker and fill with ice.",
+      "Shake, and strain into a chilled cocktail glass or divide between two shot glasses."
+    ]
+  },
+  {
+    "id": 8,
+    "search_categories": {
+      "baseSpirit":["Gin", "Liqueurs", "Vermouth|AperitifWine"],
+      "cocktailType":["Classics"]
+    },
+    "name": "Negroni",
+    "image": "img/cocktails_images/negroni-720x720-recipe.jpg",
+    "about": ["The Negroni Cocktail is a classic Italian drink. Order a Negroni and you’ll be sure to Impress your bartender."],
+    "ingredients": [
+      {
+        "quantity": "30 ml",
+        "ingr": "Campari"
+      },
+      {
+        "quantity": "30 ml",
+        "ingr": "Gin (Beefeater or Tanqueray)"
+      },
+      {
+        "quantity": "30 ml",
+        "ingr": "Sweet vermouth (Martini & Rossi Rosso or Cinzano Rosso)"
+      }
+    ],
+    "glass": "Old Fashioned",
+    "details": [
+      "Add all of the ingredients to an Old Fashioned glass and fill with ice.",
+      "Stir until cold, and garnish with an orange half-wheel."
+    ]
+  },
+  {
+    "id": 9,
+    "search_categories": {
+      "baseSpirit":["Vodka"],
+      "cocktailType":["Classics"]
+    },
+    "name": "Cape Codder",
+    "image": "img/cocktails_images/cape-codder2.jpg",
+    "about": ["Pretend like you’re on your yacht when you mix this one up."],
+    "ingredients": [
+      {
+        "quantity": "75 ml",
+        "ingr": "Vodka"
+      },
+      {
+        "quantity": "15 ml",
+        "ingr": "Cranberry juice"
+      },
+      {
+        "quantity": "1 dash",
+        "ingr": "Lime wedge"
+      }
+    ],
+    "glass": "Highball",
+    "details": ["Add the vodka to a highball glass filled with ice.",
+      "Top with cranberry juice and stir until chilled.",
+      "Squeeze the lime wedge over the glass and drop it into the drink."
+    ]
+  },
+  {
+    "id": 10,
+    "search_categories": {
+      "baseSpirit":["Vodka"],
+      "cocktailType":["Tiki|Tropical"]
+    },
+    "name": "Sex on the Beach",
+    "image": "img/cocktails_images/sex-on-the-beach2.jpg",
+    "about": ["Sex on the Beach sports a provocative name for a harmless fruity drink."],
+    "ingredients": [
+      {
+        "quantity": "45 ml",
+        "ingr": "Vodka"
+      },
+      {
+        "quantity": "15 ml",
+        "ingr": "Peach schnapps"
+      },
+      {
+        "quantity": "45 ml",
+        "ingr": "Orange or pineapple juice"
+      },
+      {
+        "quantity": "45 ml",
+        "ingr": "Cranberry juice"
+      },
+      {
+        "quantity": "15 ml",
+        "ingr": "Chambord or crème de cassis (optional)"
+      }
+    ],
+    "glass": "Highball",
+    "details": ["Add all the ingredients to a shaker and fill with ice.",
+      "Shake, and strain into a highball glass filled with fresh ice.",
+      "Garnish with an orange wheel."
+    ]
+  },
+  {
+    "id": 11,
+    "search_categories": {
+      "baseSpirit": ["Bourbon|AmericanWhiskey"],
+      "cocktailType":["ModernClassics"]
+    },
+    "name": "Gold Rusher",
+    "image": "img/cocktails_images/the-gold-rusher-720x720-recipe.jpg",
+    "about": ["For the 2016 NFL season, we had a bartender from each NFL team’s hometown provide the perfect cocktail to represent their team.",
+      "“The original 49ers were gold seekers that came through California in 1849 during the Gold Rush,” says bartender Helen Diaz of Bloodhound and Churchill in San Francisco. “When I think about the 49ers, I think Gold Rush, and then I think of the Gold Rush cocktail. This is the Gold Rusher! What better way to represent this team but to add a little fernet to the drink?” she says, calling on the fact that San Francisco consumes more fernet than any other place in the country."],
+    "ingredients": [
+      {
+        "quantity": "45 ml",
+        "ingr": "Bourbon"
+      },
+      {
+        "quantity": "15 ml",
+        "ingr": "Fernet Branca"
+      },
+      {
+        "quantity": "20 ml",
+        "ingr": "Freshly squeezed lemon juice"
+      },
+      {
+        "quantity": "15 ml",
+        "ingr": "*Ginger solution"
+      },
+      {
+        "quantity": "15 ml",
+        "ingr": "Honey syrup (3:1 honey:water)"
+      },
+      {
+        "quantity": "1 dash",
+        "ingr": "Angostura bitters"
+      }
+    ],
+    "glass": "Rocks",
+    "details": ["Add all of the ingredients to a shaker with ice, and shake until cold.",
+      "Double-strain over a large handcut chunk of ice into a rocks glass, and garnish with a mint sprig.",
+      "*Ginger solution: Heat 1 part water in a small pot over medium heat. Add 1 part water and 1 part ginger juice, and stir until the sugar is completely dissolved. Remove from heat and let cool before using."
+    ]
+  },
+  {
+    "id": 12,
+    "search_categories": {
+      "baseSpirit": ["-"],
+      "cocktailType":["Classics"]
+    },
+    "name": "Virgin Mojito (Non-Alcoholic Mojito)",
+    "image": "img/cocktails_images/Kokteyl-Mohito.jpg",
+    "about": ["Love mojitos but don't want the alcohol? Here's the drink for you! :)"],
+    "ingredients": [
+      {
+        "quantity": "8",
+        "ingr": "Mint leaves"
+      },
+      {
+        "quantity": "90 ml",
+        "ingr": "Lime juice"
+      },
+      {
+        "quantity": "45 ml",
+        "ingr": "Sugar syrup"
+      },
+      {
+        "quantity": "60 ml",
+        "ingr": "Club soda"
+      }
+    ],
+    "glass": "Highball",
+    "details": ["Fill a pint glass 1/3 full with ice, then add mint leaves.",
+      "Add the lime juice and sugar syrup.",
+      "Lightly mash the leaves together with the liquid using a muddle stick or wooden pestle, careful not to tear the leaves.",
+      "Fill the glass with more ice, then add club soda. Garnish with mint, serve."
+    ]
+  }
+]
