@@ -7,39 +7,27 @@
         <meta name="description" content="cocktail constructor">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
-        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-
-        <!--&lt;!&ndash; jQuery library &ndash;&gt;-->
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
-
-        <!--&lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
-        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">  <!-- about_page.css still exists!! -->
         <!--<link rel="stylesheet" href="css/constructor.css">-->
         <link rel="stylesheet" href="css/user's_forms.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://use.fontawesome.com/8124c1aecb.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
-	    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-	            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-	            crossorigin="anonymous"></script>
+	    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
         <header class="header_holder">
-            <div class='logIn_container'>
-                <span>Log in</span>
-                <form action="" class='logIn_form'>
-                    <input type="text" id="login" placeholder="username">
-                    <br>
-                    <input type="password" id="login_password" placeholder="password"><br>
-                    <input type="submit" value="Log in">
-                    <span class="register_proposition">Not registered yet?
-                        <button id="register_button">Sign up now!</button>
-                    </span>
-                </form>
-            </div>
+            <form class='users_form' name="users_form">
+                <span>Log in</span><br>
+                <input type="text" name='username' placeholder="username"><br>
+                <input type="password" name='login_password' placeholder="password"><br>
+                <input type="submit" value="Log in">
+                <span class="register_proposition">Not registered yet?
+                    <button id="register_button">Sign up now!</button>
+                </span>
+            </form>
             <h1 class="main_header">Cocktail constructor</h1>
             <span class='openbtn' onclick="openNav()">&#9776; open</span>
         </header>
@@ -101,50 +89,35 @@
         <div class="register_form_container hidden">
             <div class="register">
                 <h3>Create your account</h3>
-                <form id="reg-form">
+                <form name="reg_form">
                     <div>
-                        <label for="first_name">First name</label>
-                        <input type="text" id="first_name" spellcheck="false" placeholder="John"/>
+                        <label for="firstname">First name</label>
+                        <input type="text" id="firstname" name="firstname" spellcheck="false" placeholder="John"/>
                     </div>
                     <div>
-                        <label for="last_name">Last name</label>
-                        <input type="text" id="last_name" spellcheck="false" placeholder="Smith"/>
+                        <label for="lastname">Last name</label>
+                        <input type="text" id="lastname" name="lastname" spellcheck="false" placeholder="Smith"/>
                     </div>
                     <div>
                         <label for="email">Email</label>
-                        <input type="text" id="email" spellcheck="false" placeholder="example@email.com"/>
+                        <input type="text" id="email" name="email" spellcheck="false" placeholder="example@email.com"/>
                     </div>
                     <div>
                         <label for="username">Username</label>
-                        <input type="text" id="username" spellcheck="false" placeholder="shree33"/>
+                        <input type="text" id="username" name="username" spellcheck="false" placeholder="shree33"/>
                     </div>
                     <div>
                         <label for="password">Password</label>
-                        <input type="password" id="password"/>
+                        <input type="password" id="password" name="password"/>
                     </div>
                     <div>
-                        <label for="password-again">Confirm password</label>
-                        <input type="password" id="password-again"/>
+                        <label for="password_confirm">Confirm password</label>
+                        <input type="password" id="password_confirm" name="password_confirm"/>
                     </div>
                     <div>
-                        <input type="submit" value="Create Account" id="create-account" class="button"/>
+                        <input type="submit" value="Create Account" class="button"/>
                     </div>
                 </form>
-                <!--<div class="sep">-->
-                <!--<span class="or">OR</span>-->
-                <!--</div>-->
-                <!--<div class="connect">-->
-                <!--<div class="social-buttons facebook">-->
-                <!--<a href="#">-->
-                <!--<span>Facebook</span>-->
-                <!--</a>-->
-                <!--</div>-->
-                <!--<div class="social-buttons twitter">-->
-                <!--<a href="#">-->
-                <!--<span>Twitter</span>-->
-                <!--</a>-->
-                <!--</div>-->
-                <!--</div>-->
             </div>
         </div>
 
@@ -339,6 +312,7 @@
                 </div>
             </footer>
         <script src="js/plugins.js"></script>
+        <script src="js/cookie.js"></script>
         <script src="js/main.js"></script>
 
     </body>

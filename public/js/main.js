@@ -1,4 +1,4 @@
-                //sidenav animation
+//sidenav animation
 
 function openNav() {
     $(".sidenav").css('left', "0");
@@ -10,23 +10,23 @@ function closeNav() {
     // $(".main_section").css('marginLeft', 0);
 }
 
-                //other navbar functions
+//other navbar functions
 
-function showElems(id){
+function showElems(id) {
     var elem = $("#" + id),
         lis = elem.parent().siblings();
-        for (var i = 0; i < lis.length; i++) {
-            var tab = $(lis[i]).find('.nav_menu_options')[0];
-            if(!$(tab).hasClass('hidden')) {
-                $(tab).addClass('hidden');
-            }
+    for (var i = 0; i < lis.length; i++) {
+        var tab = $(lis[i]).find('.nav_menu_options')[0];
+        if (!$(tab).hasClass('hidden')) {
+            $(tab).addClass('hidden');
         }
+    }
     elem.toggleClass('hidden');
 }
 
-function changeRange(id){
+function changeRange(id) {
     var range = document.getElementById(id);
-    if(range.nextElementSibling){
+    if (range.nextElementSibling) {
         range.nextElementSibling.innerHTML = range.value + ' ingr.'
     }
     else {
@@ -36,7 +36,7 @@ function changeRange(id){
     }
 }
 
-                //constructor functions
+//constructor functions
 //
 // var containersCollection = document.querySelectorAll('.ingredients_container');
 //
@@ -69,10 +69,10 @@ function changeRange(id){
 //     }
 // }
 
-            //details of the recipe function !!! class and this function can be optimized if there would be more menus
+//details of the recipe function !!! class and this function can be optimized if there would be more menus
 
 
-$(function() {
+$(function () {
 
     var cocktails = [], //global var for all the stuff
         previousHash,
@@ -88,20 +88,23 @@ $(function() {
         $(window).trigger('hashchange');
     });
 
-    $(window).on('hashchange', function(){
+    $(window).on('hashchange', function () {
+        if(getCookie('user')){
+            signedIn(true, getCookie('user'))
+        }
         render(decodeURI(window.location.hash));
     });
 
     function render(url) {
         var temp = url.split('/')[0];
 
-        var	map = {
+        var map = {
 
-            '': function() {
+            '': function () {
                 generateCocktails(cocktails);
             },
 
-            '#selected': function() {
+            '#selected': function () {
                 var index = url.split('#selected/')[1].trim();
                 renderCocktailInfo(index, cocktails);
             },
@@ -124,27 +127,39 @@ $(function() {
             },
 
             '#add_cocktail': function () {
-                showPage('#add_cocktail');
+                $.ajax({
+                    url: "/add_cocktail",
+                    method: "GET",
+                    statusCode: {
+                        200: function () {
+                            showPage('#add_cocktail');
+                        },
+                        401: function () {
+                            generateErrorMessage('Sorry, you must register or log in first');
+                            window.location.hash = previousHash || '';
+                        }
+                    }
+                });
             }
         };
 
-        if(map[temp]){
+        if (map[temp]) {
             map[temp]();
-            if($(".sidenav").css('left', "0")) closeNav();
+            if ($(".sidenav").css('left', "0")) closeNav();
         }
     }
 
-    function generateAll(){
+    function generateAll() {
         var theTemplateScript = $("#all-cocktails-template").html();
 
-            cocktails_grid_template_func = _.template(theTemplateScript);
+        cocktails_grid_template_func = _.template(theTemplateScript);
 
         var container = $('.catalogue');
         container.append(cocktails_grid_template_func(cocktails));
         setFilters();
         // generateConstructor();
 
-        $('.header_holder').find('#register_button').on('click', function (e){
+        $('.header_holder').find('#register_button').on('click', function (e) {
             previousHash = window.location.hash;
             e.preventDefault();
 
@@ -152,17 +167,15 @@ $(function() {
         });
 
         $('.filter').on('click', function (e) {
-            if(e.target.tagName == 'BUTTON') {
+            if (e.target.tagName == 'BUTTON') {
                 sort_cocktails(e.target)
             }
         });
-
         clickedDrinkListener();
-
     }
 
     function clickedDrinkListener() {
-        $('.catalogue').find('.single_drink').on('click', function (e){
+        $('.catalogue').find('.single_drink').on('click', function (e) {
             previousHash = window.location.hash;
             e.preventDefault();
             var id = $(this).data('id');
@@ -173,7 +186,7 @@ $(function() {
 
     function sort_cocktails(target) {
         var collection = $('.single_drink');
-        if(target.name == 'name'){
+        if (target.name == 'name') {
             collection.sort(function (a, b) {
                 var textA = $(a).find('.info_container').text(),
                     textB = $(b).find('.info_container').text();
@@ -182,8 +195,8 @@ $(function() {
                 return 0;
             })
         }
-        else if((target.name == 'size')){
-            collection.sort(function (a, b){
+        else if ((target.name == 'size')) {
+            collection.sort(function (a, b) {
                 if ($(a).data('size') > $(b).data('size')) return 1;
                 else if ($(a).data('size') < $(b).data('size')) return -1;
                 return 0;
@@ -202,7 +215,7 @@ $(function() {
             quantitiesArray.push(item.quantity);
         });
         quantitiesArray.forEach(function (item) {
-            if(item.indexOf('ml') !== -1) overallSize += parseInt(item)
+            if (item.indexOf('ml') !== -1) overallSize += parseInt(item)
         });
 
         return overallSize;
@@ -221,14 +234,14 @@ $(function() {
 
     function setFilters() {
         var ingredients = [];
-            cocktails.forEach(function (item) {
-               var ingrArray = item['ingredients'];
-               _.each(ingrArray, function (obj) {
-                   if(ingredients.indexOf(obj['ingr']) == -1){
-                       ingredients.push(obj['ingr']);
-                   }
-               });
+        cocktails.forEach(function (item) {
+            var ingrArray = item['ingredients'];
+            _.each(ingrArray, function (obj) {
+                if (ingredients.indexOf(obj['ingr']) == -1) {
+                    ingredients.push(obj['ingr']);
+                }
             });
+        });
 
         ingredients = ingredients.sort();
 
@@ -239,7 +252,7 @@ $(function() {
         fieldset.append(theTemplate(ingredients));
     }
 
-    function generateCocktails(data){
+    function generateCocktails(data) {
         var allCocktails = $('.single_drink');
 
         allCocktails.addClass('hidden');
@@ -248,8 +261,8 @@ $(function() {
 
             var item = $(this);
 
-            for(var i = 0; i < data.length; i++){
-                if(item.data('id') == data[i].id){
+            for (var i = 0; i < data.length; i++) {
+                if (item.data('id') == data[i].id) {
                     item.removeClass('hidden')
                 }
             }
@@ -258,9 +271,9 @@ $(function() {
         $('#all_cocktails').removeClass('hidden');
     }
 
-    function renderCocktailInfo(id, data){
+    function renderCocktailInfo(id, data) {
         var cocktailsWindow = $('#all_cocktails');
-        if(cocktailsWindow.hasClass('.hidden')){
+        if (cocktailsWindow.hasClass('.hidden')) {
             $('.main_section').children().addClass('hidden');
             cocktailsWindow.removeClass('hidden')
         }
@@ -269,7 +282,7 @@ $(function() {
             cocktail = {};
 
         data.forEach(function (item) {
-            if(id == item.id) cocktail = item;
+            if (id == item.id) cocktail = item;
         });
         var theTemplateScript = $("#single_cocktail_template").html();
 
@@ -278,7 +291,7 @@ $(function() {
         container.append(templateFunction(cocktail));
         parent.removeClass('hidden');
 
-        parent.on('click', function(e){
+        parent.on('click', function (e) {
             if (!parent.hasClass('hidden')) {
                 var clicked = $(e.target);
                 if (clicked.hasClass('closebtn') || clicked.hasClass('selected_cocktail_holder')) {
@@ -289,7 +302,7 @@ $(function() {
 
         });
 
-        $('.details').on('click', function(){
+        $('.details').on('click', function () {
             this.classList.toggle('opened_details');
         });
     }
@@ -303,7 +316,7 @@ $(function() {
         var category = data.split('/')[0],
             collection = [];
 
-        if(data.split('/')[1]) {
+        if (data.split('/')[1]) {
             var value = data.split('/')[1];
             _.each(cocktails, function (obj) {
                 var searchCategories = obj.search_categories;
@@ -314,28 +327,48 @@ $(function() {
         } else {
             _.each(cocktails, function (obj) {
                 var alc = obj.search_categories.baseSpirit;
-                    if (alc == '-') collection.push(obj);
+                if (alc == '-') collection.push(obj);
             });
         }
         generateCocktails(collection);
     }
 
-    function openRegisterForm(){
+    function openRegisterForm() {
         var container = $('.register_form_container');
         container.removeClass('hidden');
 
-        $('body').on('click', function(e){
+        $('body').on('click', function (e) {
             if (!container.hasClass('hidden')) {
                 if (!e.target.closest('.register')) {
-                    window.location.hash = previousHash || '';
-                    container.addClass('hidden');
+                    closeRegisterForm()
                 }
             }
         });
     }
+    function closeRegisterForm(){
+        window.location.hash = previousHash || '';
+        $('.register_form_container').addClass('hidden');
+    }
 
-    $('.sidenav').on('click', function(e){
-        if(e.target.classList.contains('main_menu_links')) {
+    function generateErrorMessage(message) {
+        var errorMessage = $(document.createElement('div'));
+        errorMessage.text(message);
+        errorMessage.addClass('errorMessage');
+        errorMessage.dialog({
+            modal: true,
+            classes: {
+                'ui-dialog': 'errorMessage'
+            },
+            buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            }
+        })
+    }
+
+    $('.sidenav').on('click', function (e) {
+        if (e.target.classList.contains('main_menu_links')) {
             switch (e.target.id) {
                 case 'about_page_button':
                     window.location.hash = 'about';
@@ -351,41 +384,145 @@ $(function() {
                 //     break;
             }
         }
-        else if(e.target.matches('#no-alc')){
+        else if (e.target.matches('#no-alc')) {
             window.location.hash = 'categories/' + e.target.id;
             $("#cocktails_heading").text(e.target.innerText);
         }
-        else if(e.target.matches('.nav_menu_options span')){
+        else if (e.target.matches('.nav_menu_options span')) {
             var opts = e.target.closest('.nav_menu_options'),
                 category = opts.id,
                 value = e.target.dataset.hash;
             window.location.hash = 'categories/' + category + '/' + value + '/';
             $("#cocktails_heading").text(opts.previousElementSibling.innerHTML + ": " + e.target.innerHTML);
         }
-        else if($(e.target).hasClass('add_cocktail_button')) window.location.hash = 'add_cocktail';
-    })
+        else if ($(e.target).hasClass('add_cocktail_button')) window.location.hash = 'add_cocktail';
+    });
 
+    var signedIn = function(bool){
+        var form = $(document.forms.users_form);
+        user = arguments[1] || '';
+        if(bool) {
+            form.html("Hello, " + user + '<br>');
+            var resetButton = $(document.createElement('input'));
+            resetButton
+                .attr('type', 'submit')
+                .attr('name', 'sign_out')
+                .attr('value', 'Sign out');
+            form.append(resetButton);
 
+        } else{
+            form.html("<span>Log in</span><br>" +
+                "<input type='text' name='username' placeholder='username'><br>" +
+                "<input type='password' name='login_password' placeholder='password'><br>" +
+                "<input type='submit' value='Log in'>" +
+                "<span class='register_proposition'>Not registered yet?" +
+            "<button id='register_button'>Sign up now!</button>" +
+            "</span>");
+        }
+    };
+
+    $(document.forms.users_form).on('submit', function () {  //sign in form submitting
+        var form = $(this),
+            submitButton = $('[type=submit]', form);
+        if(submitButton.attr('value') == 'Log in') {
+            $.ajax({
+                url: "/login",
+                data: form.serialize(),
+                method: "POST",
+                statusCode: {
+                    200: function () {
+                        var user = $('input[name=username]', form).val();
+                        signedIn(true, user);
+                        setCookie('user', user);
+                    },
+                    401: function () {
+                        generateErrorMessage("Please enter a correct username and password.");
+                    }
+                }
+                // complete: function (jqXHR) {
+                //     var response = JSON.parse(jqXHR.responseText);
+                //     if (response.status === 'OK') {
+                //         signedIn(true, $('input[name=username]', form).val());
+                //     }
+                //     else if (response.status === 'error') {
+                //         var errorMessage = $(document.createElement('div'));
+                //         errorMessage.text(response.fieldError);
+                //         // errorMessage.addClass('errorMessage');
+                //         errorMessage.dialog({
+                //             modal: true,
+                //             classes: {
+                //                 'ui-dialog': 'errorMessage'
+                //             },
+                //             buttons: {
+                //                 Ok: function() {
+                //                     $( this ).dialog( "close" );
+                //                 }
+                //             }
+                //         })
+                //     }
+                // }
+            });
+            return false;
+        }
+        else if(submitButton.attr('value') == 'Sign out'){
+            $.ajax({
+                url: '/logout',
+                method: "POST",
+                statusCode: {
+                    200: function () {
+                        signedIn(false);
+                        deleteCookie('user');
+                        // if (window.location.hash == 'add_cocktails') {
+                        //     window.location.hash = previousHash || '';
+                        // }
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+    $(document.forms.reg_form).on('submit', function () {  //sign in form submitting
+        var form = $(this);
+        // $(":submit", form).button("loading");
+        $.ajax({
+            url: "/register",
+            data: form.serialize(),
+            method: "POST",
+            statusCode: {
+                200: function() {
+                    var user = $('input[name=username]', form).val();
+                    signedIn(true, user);
+                    setCookie('user', user);
+                    closeRegisterForm();
+                }
+            }
+        });
+        return false;
+    });
 });
 
-$(function(){
+$(function () {
     var placeholder = null,
         input_text = $('input[type=text]');
-    input_text.focus(function(){
+    input_text.focus(function () {
         placeholder = $(this).attr("placeholder");
-        $(this).attr("placeholder","");
+        $(this).attr("placeholder", "");
     });
-    input_text.blur(function(){
+    input_text.blur(function () {
         $(this).attr("placeholder", placeholder);
     });
 });
 
 $(function () {
     var file = $("input[type=file]")[0];
-    file.addEventListener("change", function() {
-        if(this.files && this.files[0]) {
+    file.addEventListener("change", function () {
+        if (this.files && this.files[0]) {
             var reader = new FileReader();
-            reader.onload = function(e) { $("#add_img_preview").attr("src", e.target.result); };
+            reader.onload = function (e) {
+                $("#add_img_preview").attr("src", e.target.result);
+            };
             reader.readAsDataURL(this.files[0]);
         }
-    });});
+    });
+});

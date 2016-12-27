@@ -1,4 +1,4 @@
-.logIn_container{
+.users_form{
     margin-right: 5%;
     float: right;
     /*border: 1px solid black;*/
@@ -6,15 +6,15 @@
     padding: 5px;
     /*background-color: aqua;*/
 }
-.logIn_container > span{
+.users_form > span:nth-child(1){
     font-size: 1.2em;
     font-weight: bold;
 }
-.logIn_form input{
+.users_form input{
     border-radius: 2px;
     margin: 2px;
 }
-.logIn_form input[type = 'submit']{
+.users_form input[type = 'submit']{
     padding: 3px 10px;
     border: 1px solid #000000;
     -webkit-border-radius: 2px;
@@ -22,10 +22,10 @@
     border-radius: 2px;
     background-color: #0e96db;
 }
-.logIn_form input[type = 'submit']:focus{
+.users_form input[type = 'submit']:focus{
     outline: none;
 }
-.logIn_form input[type = 'submit']:active{
+.users_form input[type = 'submit']:active{
     background-color: #1ed0e7;
 }
 .register_proposition{
@@ -184,4 +184,10 @@ label{
 
 .add_cocktail_form input{
     display: inline;
+}
+
+.ui-dialog.errorMessage{
+    border: 2px solid black;
+    background-color: red;
+    font-weight: bold;
 }
