@@ -13,9 +13,9 @@ var express = require('express'),
 var app = express();
 
 app.use(favicon(__dirname + '/public/img/favicon.ico')); // favicon
-app.use(bodyParser()); //req.body
+app.use(bodyParser.urlencoded({extended: true})); //req.body
 app.use(cookieParser()); //req.cookies
-app.use(session({ secret: 'secret' }));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 

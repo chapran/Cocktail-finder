@@ -92,6 +92,7 @@ $(function () {
         if(getCookie('user')){
             signedIn(true, getCookie('user'))
         }
+        else signedIn(false);
         render(decodeURI(window.location.hash));
     });
 
@@ -123,6 +124,7 @@ $(function () {
             },
 
             '#register': function () {
+                if(getCookie('user')) return false;
                 openRegisterForm();
             },
 
@@ -158,13 +160,6 @@ $(function () {
         container.append(cocktails_grid_template_func(cocktails));
         setFilters();
         // generateConstructor();
-
-        $('.header_holder').find('#register_button').on('click', function (e) {
-            previousHash = window.location.hash;
-            e.preventDefault();
-
-            window.location.hash = 'register/';
-        });
 
         $('.filter').on('click', function (e) {
             if (e.target.tagName == 'BUTTON') {
@@ -416,8 +411,15 @@ $(function () {
                 "<input type='password' name='login_password' placeholder='password'><br>" +
                 "<input type='submit' value='Log in'>" +
                 "<span class='register_proposition'>Not registered yet?" +
-            "<button id='register_button'>Sign up now!</button>" +
+            "<button id='register_button' type='button'>Sign up now!</button>" +
             "</span>");
+
+            $('.header_holder').find('#register_button').on('click', function (e) {
+                e.preventDefault();
+                previousHash = window.location.hash;
+
+                window.location.hash = 'register/';
+            });
         }
     };
 
