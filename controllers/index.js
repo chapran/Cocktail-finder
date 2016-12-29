@@ -4,6 +4,7 @@ module.exports = function (app) {
     app.get('/', function (req, res) {
         var file = new fs.ReadStream('index.html');
         sendFile(file, res);
+        res.end();
     });
 };
 

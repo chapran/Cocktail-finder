@@ -78,15 +78,30 @@ $(function () {
         previousHash,
         cocktails_grid_template_func;
 
-    $.getJSON("db.json", function (data) {
-
-        cocktails = data;
-        cocktails.forEach(function (item) {
-            item.size = calculateSize(item);
-        });
-        generateAll();
-        $(window).trigger('hashchange');
+    $.ajax({
+        url: '/getcollection',
+        method: 'GET',
+        complete: function (jqXHR) {
+            cocktails = JSON.parse(jqXHR.responseText);
+            console.log(cocktails);
+            cocktails.forEach(function (item) {
+                item.size = calculateSize(item);
+            });
+                generateAll();
+                $(window).trigger('hashchange');
+        }
     });
+
+
+    // $.getJSON("db.json", function (data) {
+    //     cocktails = data;
+    //     console.log(cocktails);
+    //     cocktails.forEach(function (item) {
+    //         item.size = calculateSize(item);
+    //     });
+    //     generateAll();
+    //     $(window).trigger('hashchange');
+    // });
 
     $(window).on('hashchange', function () {
         if(getCookie('user')){
@@ -147,7 +162,7 @@ $(function () {
 
         if (map[temp]) {
             map[temp]();
-            if ($(".sidenav").css('left', "0")) closeNav();
+            if ($(".sidenav").css('left') == "0") closeNav();
         }
     }
 
@@ -254,11 +269,11 @@ $(function () {
 
         allCocktails.each(function () {
 
-            var item = $(this);
+            var item = this;
 
             for (var i = 0; i < data.length; i++) {
-                if (item.data('id') == data[i].id) {
-                    item.removeClass('hidden')
+                if (item.dataset.id == data[i]._id) {
+                    item.classList.remove('hidden')
                 }
             }
         });
@@ -277,7 +292,7 @@ $(function () {
             cocktail = {};
 
         data.forEach(function (item) {
-            if (id == item.id) cocktail = item;
+            if (id == item._id) cocktail = item;
         });
         var theTemplateScript = $("#single_cocktail_template").html();
 
@@ -355,7 +370,7 @@ $(function () {
                 'ui-dialog': 'errorMessage'
             },
             buttons: {
-                Ok: function () {
+                'Ok': function () {
                     $(this).dialog("close");
                 }
             }
