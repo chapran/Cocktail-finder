@@ -83,7 +83,6 @@ $(function () {
         method: 'GET',
         complete: function (jqXHR) {
             cocktails = JSON.parse(jqXHR.responseText);
-            console.log(cocktails);
             cocktails.forEach(function (item) {
                 item.size = calculateSize(item);
             });
@@ -517,6 +516,10 @@ $(function () {
         });
         return false;
     });
+
+    $(document.forms.search_form).on('submit', function(){
+        var form = $(this);
+    })
 });
 
 $(function () {

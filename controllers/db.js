@@ -9,4 +9,8 @@ module.exports = function (app) {
                     res.end();
                 });
     });
+
+    app.get('/?search*', function(){
+        console.log('the request has come!');
+    })
 };
