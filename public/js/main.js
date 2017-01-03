@@ -144,7 +144,7 @@ $(function () {
 
             '#add_cocktail': function () {
                 $.ajax({
-                    url: "/add_cocktail",
+                    url: "/check_auth",
                     method: "GET",
                     statusCode: {
                         200: function () {
@@ -161,7 +161,7 @@ $(function () {
 
         if (map[temp]) {
             map[temp]();
-            if ($(".sidenav").css('left') == "0") closeNav();
+            if ($(".sidenav").css('left', '0')) closeNav();
         }
     }
 
@@ -518,7 +518,23 @@ $(function () {
     });
 
     $(document.forms.search_form).on('submit', function(){
-        var form = $(this);
+        // var form = $(this);
+    });
+
+    $(document.forms.add_cocktail_form).on('submit', function () {
+        var formData = new FormData(this);
+        $.ajax({
+            url: "/add_cocktail",
+            data: formData,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            statusCode: {
+                200: function () {
+                }
+            }
+        });
+        return false;
     })
 });
 

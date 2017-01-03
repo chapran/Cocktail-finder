@@ -98,7 +98,7 @@ module.exports = function (app) {
     });
 
 
-    app.get('/add_cocktail', auth, function (req, res) {
+    app.get('/check_auth', auth, function (req, res) {
         var param = req.query.name;
         log.info(param);
         res.sendStatus(200);

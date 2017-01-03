@@ -25,13 +25,11 @@ if(app.get('env') == 'development'){  //logger
 
 app.use(express.static(__dirname + '/public')); //static dirname for public files
 
-var mainController = require('./controllers'),
-    accountController = require('./controllers/account'),
-    dbController = require('./controllers/db');
+require('./controllers')(app);
+require('./controllers/account')(app);
+require('./controllers/db')(app);
+require('./controllers/addCocktailsController')(app);
 
-mainController(app);
-accountController(app);
-dbController(app);
 
 http.createServer(app).listen(config.get('port'), function () {  //creating the server
     log.info("server listening on port " + config.get('port'))
