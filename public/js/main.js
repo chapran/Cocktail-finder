@@ -111,9 +111,9 @@ $(function () {
     });
 
     function render(url) {
-        var temp = url.split('/')[0];
+        var temp = url.split('/')[0],
 
-        var map = {
+            map = {
 
             '': function () {
                 generateCocktails(cocktails);
@@ -161,8 +161,13 @@ $(function () {
 
         if (map[temp]) {
             map[temp]();
-            if ($(".sidenav").css('left', '0')) closeNav();
         }
+        else if(~temp.indexOf('search=')){
+            var query = temp.split('#')[1];
+            getSearchQuery(query)
+        }
+
+        // if ($(".sidenav").css('left', '0')) closeNav();
     }
 
     function generateAll() {
@@ -433,6 +438,19 @@ $(function () {
         }
     };
 
+    function getSearchQuery(queryText) {
+        console.log(queryText);
+        $.ajax({
+            url: "/search",
+            data: queryText,
+            method: "GET",
+            statusCode: {
+                200: function() {
+                }
+            }
+        });
+    }
+
     $(document.forms.users_form).on('submit', function () {  //sign in form submitting
         var form = $(this),
             submitButton = $('[type=submit]', form);
@@ -450,28 +468,6 @@ $(function () {
                     400: function (){generateMessage('Please fill in all the form fields')},
                     401: function (){generateMessage("Please enter a correct username and password.")}
                 }
-                // complete: function (jqXHR) {
-                //     var response = JSON.parse(jqXHR.responseText);
-                //     if (response.status === 'OK') {
-                //         signedIn(true, $('input[name=username]', form).val());
-                //     }
-                //     else if (response.status === 'error') {
-                //         var errorMessage = $(document.createElement('div'));
-                //         errorMessage.text(response.fieldError);
-                //         // errorMessage.addClass('errorMessage');
-                //         errorMessage.dialog({
-                //             modal: true,
-                //             classes: {
-                //                 'ui-dialog': 'errorMessage'
-                //             },
-                //             buttons: {
-                //                 Ok: function() {
-                //                     $( this ).dialog( "close" );
-                //                 }
-                //             }
-                //         })
-                //     }
-                // }
             });
             return false;
         }
@@ -483,9 +479,6 @@ $(function () {
                     200: function () {
                         signedIn(false);
                         deleteCookie('user');
-                        // if (window.location.hash == 'add_cocktails') {
-                        //     window.location.hash = previousHash || '';
-                        // }
                     }
                 }
             });
@@ -495,7 +488,6 @@ $(function () {
 
     $(document.forms.reg_form).on('submit', function () {  //sign in form submitting
         var form = $(this);
-        // $(":submit", form).button("loading");
         $.ajax({
             url: "/register",
             data: form.serialize(),
@@ -513,7 +505,8 @@ $(function () {
     });
 
     $(document.forms.search_form).on('submit', function(){
-        // var form = $(this);
+        window.location.hash = $(this).serialize();
+        return false;
     });
 
     $(document.forms.add_cocktail_form).on('submit', function () {

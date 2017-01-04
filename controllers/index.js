@@ -2,6 +2,7 @@ var fs = require('fs');
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
+        debugger;
         var file = new fs.ReadStream('index.html');
         sendFile(file, res);
         res.end();
