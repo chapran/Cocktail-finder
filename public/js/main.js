@@ -151,7 +151,7 @@ $(function () {
                             showPage('#add_cocktail');
                         },
                         401: function () {
-                            generateErrorMessage('Sorry, you must register or log in first');
+                            generateMessage('Sorry, you must register or log in first');
                             window.location.hash = previousHash || '';
                         }
                     }
@@ -359,15 +359,11 @@ $(function () {
         $('.register_form_container').addClass('hidden');
     }
 
-    function generateErrorMessage(message) {
-        var errorMessage = $(document.createElement('div'));
-        errorMessage.text(message);
-        errorMessage.addClass('errorMessage');
-        errorMessage.dialog({
+    function generateMessage(message) {
+        var jqMessage = $(document.createElement('div'));
+        jqMessage.text(message);
+        jqMessage.dialog({
             modal: true,
-            classes: {
-                'ui-dialog': 'errorMessage'
-            },
             buttons: {
                 'Ok': function () {
                     $(this).dialog("close");
@@ -451,9 +447,8 @@ $(function () {
                         signedIn(true, user);
                         setCookie('user', user);
                     },
-                    401: function () {
-                        generateErrorMessage("Please enter a correct username and password.");
-                    }
+                    400: function (){generateMessage('Please fill in all the form fields')},
+                    401: function (){generateMessage("Please enter a correct username and password.")}
                 }
                 // complete: function (jqXHR) {
                 //     var response = JSON.parse(jqXHR.responseText);
@@ -531,6 +526,8 @@ $(function () {
             method: "POST",
             statusCode: {
                 200: function () {
+                    window.location.hash = '';
+                    generateMessage('Well done! your cocktail was added to the database');
                 }
             }
         });

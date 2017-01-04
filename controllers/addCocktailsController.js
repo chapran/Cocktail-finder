@@ -2,7 +2,7 @@ var Cocktail = require('../models/cocktailsModel').Cocktail,
     multer = require('multer'),
     storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, './uploads')
+            cb(null, './public/img/uploadedCocktails')
         },
         filename: function (req, file, cb) {
             var tmp = file.originalname.split('.');
@@ -17,12 +17,14 @@ module.exports = function (app) {
     });
 };
 
-function saveToDB(req, res) {
-    req.body.image = req.file.path;
+function saveToDB(req, res, next) {
+    req.body.image = 'img/uploadedCocktails/' + req.file.filename;
+    console.log(req.body.image);
     var cocktailData = req.body,
         cocktail = new Cocktail(cocktailData);
     cocktail.save(function (err) {
         if (err) return next(err);
+        res.statusCode = 200;
         res.end();
     });
 }
