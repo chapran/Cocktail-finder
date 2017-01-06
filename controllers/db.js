@@ -3,8 +3,20 @@ var mongoose = require('lib/mongoose'),
     db = mongoose.connection.db;
 
 module.exports = function (app) {
-    app.get('/getcollection', function (req, res) {
+    app.get('/getcollection/', function (req, res) {
         var collection = db.collection('cocktails').find();
+        collection.toArray(function (err, result) {
+            res.send(result);
+            res.end();
+        });
+    });
+
+    app.get(/categories/, function (req, res) {
+        var pathArray = req.path.split('/'),
+            path = JSON.parse('{\"' + pathArray[2] + '.' + pathArray[3] + '\": \"' + pathArray[4] + '\"}'),
+            collection = db.collection('cocktails').find(path);
+        console.log(path);
+
         collection.toArray(function (err, result) {
             res.send(result);
             res.end();

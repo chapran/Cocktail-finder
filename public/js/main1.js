@@ -79,14 +79,25 @@ $(function () {
         cocktails_grid_template_func;
 
     $.ajax({
-        url: '/getcollection',
+        url: '/getcollection/',
         method: 'GET',
         complete: function (jqXHR) {
             generateCocktails(jqXHR);
+            $(window).trigger('hashchange');
         }
     });
 
-        $(window).trigger('hashchange');
+    function getCollection(path){
+        $.ajax({
+            url: '/getcollection/' + path,
+            method: 'GET',
+            complete: function (jqXHR) {
+                generateCocktails(jqXHR);
+            }
+        });
+        $('.main_section').children().addClass('hidden');
+        $('#all_cocktails').removeClass('hidden');
+    }
 
     function generateCocktails(data) {
         cocktails = JSON.parse(data.responseText);
@@ -140,34 +151,29 @@ $(function () {
         var temp = url.split('/')[0],
 
             map = {
-
                 '': function () {
-                    generateCocktails(cocktails);
+                    getCollection('');
                 },
-
                 '#selected': function () {
                     var index = url.split('#selected/')[1].trim();
                     renderCocktailInfo(index, cocktails);
                 },
-
                 '#about': function () {
                     showPage('#about_page');
                 },
-
                 // '#constructor': function(){
                 //     showPage('#constructor');
                 // },
-
                 '#categories': function () {
-                    url = url.split('#categories/')[1].trim();
-                    renderCategory(url);
+                    var path = url.split('#')[1].trim();
+                    getCollection(path);
+                    // url = url.split('#categories/')[1].trim();
+                    // renderCategory(url);
                 },
-
                 '#register': function () {
                     if (getCookie('user')) return false;
                     openRegisterForm();
                 },
-
                 '#add_cocktail': function () {
                     $.ajax({
                         url: "/check_auth",
@@ -315,26 +321,26 @@ $(function () {
         $(id).removeClass('hidden');
     }
 
-    function renderCategory(data) {
-        var category = data.split('/')[0],
-            collection = [];
-
-        if (data.split('/')[1]) {
-            var value = data.split('/')[1];
-            _.each(cocktails, function (obj) {
-                var searchCategories = obj.search_categories;
-                for (var i = 0; i < searchCategories[category].length; i++) {
-                    if (searchCategories[category][i] == value) collection.push(obj);
-                }
-            });
-        } else {
-            _.each(cocktails, function (obj) {
-                var alc = obj.search_categories.baseSpirit;
-                if (alc == '-') collection.push(obj);
-            });
-        }
-        generateCocktails(collection);
-    }
+    // function renderCategory(data) {
+    //     var category = data.split('/')[0],
+    //         collection = [];
+    //
+    //     if (data.split('/')[1]) {
+    //         var value = data.split('/')[1];
+    //         _.each(cocktails, function (obj) {
+    //             var searchCategories = obj.search_categories;
+    //             for (var i = 0; i < searchCategories[category].length; i++) {
+    //                 if (searchCategories[category][i] == value) collection.push(obj);
+    //             }
+    //         });
+    //     } else {
+    //         _.each(cocktails, function (obj) {
+    //             var alc = obj.search_categories.baseSpirit;
+    //             if (alc == '-') collection.push(obj);
+    //         });
+    //     }
+    //     generateCocktails(collection);
+    // }
 
     function openRegisterForm() {
         var container = $('.register_form_container');
