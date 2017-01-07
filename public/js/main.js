@@ -1,12 +1,15 @@
 //sidenav animation
 
+var openedNav = false;
 function openNav() {
     $(".sidenav").css('left', "0");
+    openedNav = true;
     // $(".main_section").css('marginLeft', "290px");
 }
 
 function closeNav() {
     $(".sidenav").css('left', '-290px');
+    openedNav = false;
     // $(".main_section").css('marginLeft', 0);
 }
 
@@ -87,7 +90,7 @@ $(function () {
         }
     });
 
-    function getCollection(path){
+    function getCollection(path) {
         $.ajax({
             url: '/getcollection/' + path,
             method: 'GET',
@@ -95,7 +98,7 @@ $(function () {
                 generateCocktails(jqXHR);
             }
         });
-        $('.main_section').children().addClass('hidden');
+        hideViews();
         $('#all_cocktails').removeClass('hidden');
     }
 
@@ -130,11 +133,11 @@ $(function () {
     function setCollectionHeading() {
         var pathArray = decodeURI(window.location.hash).split('/'),
             headingContainer = $("#cocktails_heading");
-        if(pathArray[0] === ""){
+        if (pathArray[0] === "") {
             headingContainer.text("All cocktails");
         }
-        else if(pathArray[0] === "#categories"){
-            if(pathArray[1] === "no-alc"){
+        else if (pathArray[0] === "#categories") {
+            if (pathArray[1] === "no-alc") {
                 headingContainer.text("Non-alcohol drinks");
             } else {
                 var category = $('#' + pathArray[1]).prev().text(),
@@ -142,9 +145,19 @@ $(function () {
                 headingContainer.text(category + ": " + value);
             }
         }
-        else if(pathArray[0].split('=')[0] === "#search"){
+        else if (pathArray[0].split('=')[0] === "#search") {
             headingContainer.text('Search results for \"' + pathArray[0].split('=')[1] + '\"');
         }
+    }
+
+    function hideViews() {
+        [
+            $('.register_form_container'),
+            $('.selected_cocktail_holder'),
+            $('.main_section').children()
+        ].forEach(function (item) {
+            item.addClass('hidden');
+        })
     }
 
     $(window).on('hashchange', function () {
@@ -205,7 +218,7 @@ $(function () {
             getSearchQuery(query)
         }
 
-        // if ($(".sidenav").css('left', '0')) closeNav();
+        if (openedNav) closeNav();
     }
 
     function clickedDrinkListener() {
@@ -323,7 +336,7 @@ $(function () {
     }
 
     function showPage(id) {
-        $('.main_section').children().addClass('hidden');
+        hideViews();
         $(id).removeClass('hidden');
     }
 
