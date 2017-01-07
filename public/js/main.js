@@ -79,92 +79,42 @@ $(function () {
         cocktails_grid_template_func;
 
     $.ajax({
-        url: '/getcollection',
+        url: '/getcollection/',
         method: 'GET',
         complete: function (jqXHR) {
-            cocktails = JSON.parse(jqXHR.responseText);
-            cocktails.forEach(function (item) {
-                item.size = calculateSize(item);
-            });
-                generateAll();
-                $(window).trigger('hashchange');
+            generateCocktails(jqXHR);
+            $(window).trigger('hashchange');
         }
     });
 
-    $(window).on('hashchange', function () {
-        if(getCookie('user')){
-            signedIn(true, getCookie('user'))
-        }
-        else signedIn(false);
-        render(decodeURI(window.location.hash));
-    });
-
-    function render(url) {
-        var temp = url.split('/')[0],
-
-            map = {
-
-            '': function () {
-                generateCocktails(cocktails);
-            },
-
-            '#selected': function () {
-                var index = url.split('#selected/')[1].trim();
-                renderCocktailInfo(index, cocktails);
-            },
-
-            '#about': function () {
-                showPage('#about_page');
-            },
-
-            // '#constructor': function(){
-            //     showPage('#constructor');
-            // },
-
-            '#categories': function () {
-                url = url.split('#categories/')[1].trim();
-                renderCategory(url);
-            },
-
-            '#register': function () {
-                if(getCookie('user')) return false;
-                openRegisterForm();
-            },
-
-            '#add_cocktail': function () {
-                $.ajax({
-                    url: "/check_auth",
-                    method: "GET",
-                    statusCode: {
-                        200: function () {
-                            showPage('#add_cocktail');
-                        },
-                        401: function () {
-                            generateMessage('Sorry, you must register or log in first');
-                            window.location.hash = previousHash || '';
-                        }
-                    }
-                });
+    function getCollection(path){
+        $.ajax({
+            url: '/getcollection/' + path,
+            method: 'GET',
+            complete: function (jqXHR) {
+                generateCocktails(jqXHR);
             }
-        };
-
-        if (map[temp]) {
-            map[temp]();
-        }
-        else if(~temp.indexOf('search=')){
-            var query = temp.split('#')[1];
-            getSearchQuery(query)
-        }
-
-        // if ($(".sidenav").css('left', '0')) closeNav();
+        });
+        $('.main_section').children().addClass('hidden');
+        $('#all_cocktails').removeClass('hidden');
     }
 
-    function generateAll() {
+    function generateCocktails(data) {
+        cocktails = JSON.parse(data.responseText);
+        cocktails.forEach(function (item) {
+            item.size = calculateSize(item);
+        });
+        setCollectionHeading();
+        compileAndListen();
+    }
+
+    function compileAndListen() {
         var theTemplateScript = $("#all-cocktails-template").html();
 
         cocktails_grid_template_func = _.template(theTemplateScript);
 
         var container = $('.catalogue');
+        $('.single_drink', container).remove();
         container.append(cocktails_grid_template_func(cocktails));
         setFilters();
         // generateConstructor();
@@ -175,6 +125,87 @@ $(function () {
             }
         });
         clickedDrinkListener();
+    }
+
+    function setCollectionHeading() {
+        var pathArray = decodeURI(window.location.hash).split('/'),
+            headingContainer = $("#cocktails_heading");
+        if(pathArray[0] === ""){
+            headingContainer.text("All cocktails");
+        }
+        else if(pathArray[0] === "#categories"){
+            if(pathArray[1] === "no-alc"){
+                headingContainer.text("Non-alcohol drinks");
+            } else {
+                var category = $('#' + pathArray[1]).prev().text(),
+                    value = $('[data-hash=\"' + pathArray[2] + '\"]').text();
+                headingContainer.text(category + ": " + value);
+            }
+        }
+        else if(pathArray[0].split('=')[0] === "#search"){
+            headingContainer.text('Search results for \"' + pathArray[0].split('=')[1] + '\"');
+        }
+    }
+
+    $(window).on('hashchange', function () {
+        if (getCookie('user')) {
+            signedIn(true, getCookie('user'))
+        }
+        else signedIn(false);
+        render(decodeURI(window.location.hash));
+    });
+
+    function render(url) {
+        var temp = url.split('/')[0],
+
+            map = {
+                '': function () {
+                    getCollection('');
+                },
+                '#selected': function () {
+                    var index = url.split('#selected/')[1].trim();
+                    renderCocktailInfo(index, cocktails);
+                },
+                '#about': function () {
+                    showPage('#about_page');
+                },
+                // '#constructor': function(){
+                //     showPage('#constructor');
+                // },
+                '#categories': function () {
+                    var path = url.split('#')[1].trim();
+                    getCollection(path);
+                },
+                '#register': function () {
+                    if (getCookie('user')) return false;
+                    openRegisterForm();
+                },
+                '#add_cocktail': function () {
+                    $.ajax({
+                        url: "/check_auth",
+                        method: "GET",
+                        statusCode: {
+                            200: function () {
+                                showPage('#add_cocktail');
+                            },
+                            401: function () {
+                                generateMessage('Sorry, you must register or log in first');
+                                window.location.hash = previousHash || '';
+                            }
+                        }
+                    });
+                }
+            };
+
+        if (map[temp]) {
+            map[temp]();
+        }
+        else if (~temp.indexOf('search=')) {
+            var query = temp.split('#')[1];
+            getSearchQuery(query)
+        }
+
+        // if ($(".sidenav").css('left', '0')) closeNav();
     }
 
     function clickedDrinkListener() {
@@ -206,7 +237,7 @@ $(function () {
             })
         }
         var container = $('.catalogue');
-        container.empty();
+        $('.single_drink', container).remove();
         container.append(collection);
         clickedDrinkListener();
     }
@@ -255,25 +286,6 @@ $(function () {
         fieldset.append(theTemplate(ingredients));
     }
 
-    function generateCocktails(data) {
-        var allCocktails = $('.single_drink');
-
-        allCocktails.addClass('hidden');
-
-        allCocktails.each(function () {
-
-            var item = this;
-
-            for (var i = 0; i < data.length; i++) {
-                if (item.dataset.id == data[i]._id) {
-                    item.classList.remove('hidden')
-                }
-            }
-        });
-        $('.main_section').children().addClass('hidden');
-        $('#all_cocktails').removeClass('hidden');
-    }
-
     function renderCocktailInfo(id, data) {
         var cocktailsWindow = $('#all_cocktails');
         if (cocktailsWindow.hasClass('.hidden')) {
@@ -315,27 +327,6 @@ $(function () {
         $(id).removeClass('hidden');
     }
 
-    function renderCategory(data) {
-        var category = data.split('/')[0],
-            collection = [];
-
-        if (data.split('/')[1]) {
-            var value = data.split('/')[1];
-            _.each(cocktails, function (obj) {
-                var searchCategories = obj.search_categories;
-                for (var i = 0; i < searchCategories[category].length; i++) {
-                    if (searchCategories[category][i] == value) collection.push(obj);
-                }
-            });
-        } else {
-            _.each(cocktails, function (obj) {
-                var alc = obj.search_categories.baseSpirit;
-                if (alc == '-') collection.push(obj);
-            });
-        }
-        generateCocktails(collection);
-    }
-
     function openRegisterForm() {
         var container = $('.register_form_container');
         container.removeClass('hidden');
@@ -348,7 +339,8 @@ $(function () {
             }
         });
     }
-    function closeRegisterForm(){
+
+    function closeRegisterForm() {
         window.location.hash = previousHash || '';
         $('.register_form_container').addClass('hidden');
     }
@@ -375,7 +367,6 @@ $(function () {
 
                 case 'all_cocktails_button':
                     window.location.hash = '';
-                    $("#cocktails_heading").text("All cocktails");
                     break;
 
                 // case 'constructor_button':
@@ -385,22 +376,20 @@ $(function () {
         }
         else if (e.target.matches('#no-alc')) {
             window.location.hash = 'categories/' + e.target.id;
-            $("#cocktails_heading").text(e.target.innerText);
         }
         else if (e.target.matches('.nav_menu_options span')) {
             var opts = e.target.closest('.nav_menu_options'),
                 category = opts.id,
                 value = e.target.dataset.hash;
             window.location.hash = 'categories/' + category + '/' + value + '/';
-            $("#cocktails_heading").text(opts.previousElementSibling.innerHTML + ": " + e.target.innerHTML);
         }
         else if ($(e.target).hasClass('add_cocktail_button')) window.location.hash = 'add_cocktail';
     });
 
-    var signedIn = function(bool){
+    var signedIn = function (bool) {
         var form = $(document.forms.users_form);
         user = arguments[1] || '';
-        if(bool) {
+        if (bool) {
             form.html("Hello, " + user + '<br>');
             var resetButton = $(document.createElement('input'));
             resetButton
@@ -409,14 +398,14 @@ $(function () {
                 .attr('value', 'Sign out');
             form.append(resetButton);
 
-        } else{
+        } else {
             form.html("<span>Log in</span><br>" +
                 "<input type='text' name='username' placeholder='username'><br>" +
                 "<input type='password' name='login_password' placeholder='password'><br>" +
                 "<input type='submit' value='Log in'>" +
                 "<span class='register_proposition'>Not registered yet?" +
-            "<button id='register_button' type='button'>Sign up now!</button>" +
-            "</span>");
+                "<button id='register_button' type='button'>Sign up now!</button>" +
+                "</span>");
 
             $('.header_holder').find('#register_button').on('click', function (e) {
                 e.preventDefault();
@@ -432,10 +421,8 @@ $(function () {
             url: "/search",
             data: queryText,
             method: "GET",
-            statusCode: {
-                200: function() {
-
-                }
+            complete: function (jqXHR) {
+                generateCocktails(jqXHR)
             }
         });
     }
@@ -443,7 +430,7 @@ $(function () {
     $(document.forms.users_form).on('submit', function () {  //sign in form submitting
         var form = $(this),
             submitButton = $('[type=submit]', form);
-        if(submitButton.attr('value') == 'Log in') {
+        if (submitButton.attr('value') == 'Log in') {
             $.ajax({
                 url: "/login",
                 data: form.serialize(),
@@ -454,13 +441,17 @@ $(function () {
                         signedIn(true, user);
                         setCookie('user', user);
                     },
-                    400: function (){generateMessage('Please fill in all the form fields')},
-                    401: function (){generateMessage("Please enter a correct username and password.")}
+                    400: function () {
+                        generateMessage('Please fill in all the form fields')
+                    },
+                    401: function () {
+                        generateMessage("Please enter a correct username and password.")
+                    }
                 }
             });
             return false;
         }
-        else if(submitButton.attr('value') == 'Sign out'){
+        else if (submitButton.attr('value') == 'Sign out') {
             $.ajax({
                 url: '/logout',
                 method: "POST",
@@ -482,7 +473,7 @@ $(function () {
             data: form.serialize(),
             method: "POST",
             statusCode: {
-                200: function() {
+                200: function () {
                     var user = $('input[name=username]', form).val();
                     signedIn(true, user);
                     setCookie('user', user);
@@ -493,7 +484,7 @@ $(function () {
         return false;
     });
 
-    $(document.forms.search_form).on('submit', function(){
+    $(document.forms.search_form).on('submit', function () {
         window.location.hash = $(this).serialize();
         return false;
     });

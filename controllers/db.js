@@ -12,9 +12,14 @@ module.exports = function (app) {
     });
 
     app.get(/categories/, function (req, res) {
-        var pathArray = req.path.split('/'),
-            path = JSON.parse('{\"' + pathArray[2] + '.' + pathArray[3] + '\": \"' + pathArray[4] + '\"}'),
-            collection = db.collection('cocktails').find(path);
+        var pathArray = decodeURIComponent(req.path).split('/'),
+            path;
+        if(pathArray[3] === 'no-alc'){
+            path = JSON.parse('{\"search_categories.baseSpirit\": \"-\"}')
+        } else{
+            path = JSON.parse('{\"search_categories.' + pathArray[3] + '\": \"' + pathArray[4] + '\"}')
+        }
+            var collection = db.collection('cocktails').find(path);
         console.log(path);
 
         collection.toArray(function (err, result) {

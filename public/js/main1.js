@@ -79,68 +79,20 @@ $(function () {
         cocktails_grid_template_func;
 
     $.ajax({
-        url: '/getcollection/',
+        url: '/getcollection',
         method: 'GET',
         complete: function (jqXHR) {
-            generateCocktails(jqXHR);
+            cocktails = JSON.parse(jqXHR.responseText);
+            cocktails.forEach(function (item) {
+                item.size = calculateSize(item);
+            });
+            generateAll();
             $(window).trigger('hashchange');
         }
     });
 
-    function getCollection(path){
-        $.ajax({
-            url: '/getcollection/' + path,
-            method: 'GET',
-            complete: function (jqXHR) {
-                generateCocktails(jqXHR);
-            }
-        });
-        $('.main_section').children().addClass('hidden');
-        $('#all_cocktails').removeClass('hidden');
-    }
-
-    function generateCocktails(data) {
-        cocktails = JSON.parse(data.responseText);
-        cocktails.forEach(function (item) {
-            item.size = calculateSize(item);
-        });
-        compileAndListen();
-
-        // var allCocktails = $('.single_drink');
-        // allCocktails.addClass('hidden');
-        // allCocktails.each(function () {
-        //     var item = this;
-        //     for (var i = 0; i < data.length; i++) {
-        //         if (item.dataset.id == data[i]._id) {
-        //             item.classList.remove('hidden')
-        //         }
-        //     }
-        // });
-        // $('.main_section').children().addClass('hidden');
-        // $('#all_cocktails').removeClass('hidden');
-    }
-
-    function compileAndListen() {
-        var theTemplateScript = $("#all-cocktails-template").html();
-
-        cocktails_grid_template_func = _.template(theTemplateScript);
-
-        var container = $('.catalogue');
-        $('.single_drink', container).remove();
-        container.append(cocktails_grid_template_func(cocktails));
-        setFilters();
-        // generateConstructor();
-
-        $('.filter').on('click', function (e) {
-            if (e.target.tagName == 'BUTTON') {
-                sort_cocktails(e.target)
-            }
-        });
-        clickedDrinkListener();
-    }
-
     $(window).on('hashchange', function () {
-        if (getCookie('user')) {
+        if(getCookie('user')){
             signedIn(true, getCookie('user'))
         }
         else signedIn(false);
@@ -151,29 +103,34 @@ $(function () {
         var temp = url.split('/')[0],
 
             map = {
+
                 '': function () {
-                    getCollection('');
+                    generateCocktails(cocktails);
                 },
+
                 '#selected': function () {
                     var index = url.split('#selected/')[1].trim();
                     renderCocktailInfo(index, cocktails);
                 },
+
                 '#about': function () {
                     showPage('#about_page');
                 },
+
                 // '#constructor': function(){
                 //     showPage('#constructor');
                 // },
+
                 '#categories': function () {
-                    var path = url.split('#')[1].trim();
-                    getCollection(path);
-                    // url = url.split('#categories/')[1].trim();
-                    // renderCategory(url);
+                    url = url.split('#categories/')[1].trim();
+                    renderCategory(url);
                 },
+
                 '#register': function () {
-                    if (getCookie('user')) return false;
+                    if(getCookie('user')) return false;
                     openRegisterForm();
                 },
+
                 '#add_cocktail': function () {
                     $.ajax({
                         url: "/check_auth",
@@ -194,12 +151,30 @@ $(function () {
         if (map[temp]) {
             map[temp]();
         }
-        else if (~temp.indexOf('search=')) {
+        else if(~temp.indexOf('search=')){
             var query = temp.split('#')[1];
             getSearchQuery(query)
         }
 
         // if ($(".sidenav").css('left', '0')) closeNav();
+    }
+
+    function generateAll() {
+        var theTemplateScript = $("#all-cocktails-template").html();
+
+        cocktails_grid_template_func = _.template(theTemplateScript);
+
+        var container = $('.catalogue');
+        container.append(cocktails_grid_template_func(cocktails));
+        setFilters();
+        // generateConstructor();
+
+        $('.filter').on('click', function (e) {
+            if (e.target.tagName == 'BUTTON') {
+                sort_cocktails(e.target)
+            }
+        });
+        clickedDrinkListener();
     }
 
     function clickedDrinkListener() {
@@ -231,7 +206,7 @@ $(function () {
             })
         }
         var container = $('.catalogue');
-        $('.single_drink', container).remove();
+        container.empty();
         container.append(collection);
         clickedDrinkListener();
     }
@@ -280,6 +255,25 @@ $(function () {
         fieldset.append(theTemplate(ingredients));
     }
 
+    function generateCocktails(data) {
+        var allCocktails = $('.single_drink');
+
+        allCocktails.addClass('hidden');
+
+        allCocktails.each(function () {
+
+            var item = this;
+
+            for (var i = 0; i < data.length; i++) {
+                if (item.dataset.id == data[i]._id) {
+                    item.classList.remove('hidden')
+                }
+            }
+        });
+        $('.main_section').children().addClass('hidden');
+        $('#all_cocktails').removeClass('hidden');
+    }
+
     function renderCocktailInfo(id, data) {
         var cocktailsWindow = $('#all_cocktails');
         if (cocktailsWindow.hasClass('.hidden')) {
@@ -321,26 +315,26 @@ $(function () {
         $(id).removeClass('hidden');
     }
 
-    // function renderCategory(data) {
-    //     var category = data.split('/')[0],
-    //         collection = [];
-    //
-    //     if (data.split('/')[1]) {
-    //         var value = data.split('/')[1];
-    //         _.each(cocktails, function (obj) {
-    //             var searchCategories = obj.search_categories;
-    //             for (var i = 0; i < searchCategories[category].length; i++) {
-    //                 if (searchCategories[category][i] == value) collection.push(obj);
-    //             }
-    //         });
-    //     } else {
-    //         _.each(cocktails, function (obj) {
-    //             var alc = obj.search_categories.baseSpirit;
-    //             if (alc == '-') collection.push(obj);
-    //         });
-    //     }
-    //     generateCocktails(collection);
-    // }
+    function renderCategory(data) {
+        var category = data.split('/')[0],
+            collection = [];
+
+        if (data.split('/')[1]) {
+            var value = data.split('/')[1];
+            _.each(cocktails, function (obj) {
+                var searchCategories = obj.search_categories;
+                for (var i = 0; i < searchCategories[category].length; i++) {
+                    if (searchCategories[category][i] == value) collection.push(obj);
+                }
+            });
+        } else {
+            _.each(cocktails, function (obj) {
+                var alc = obj.search_categories.baseSpirit;
+                if (alc == '-') collection.push(obj);
+            });
+        }
+        generateCocktails(collection);
+    }
 
     function openRegisterForm() {
         var container = $('.register_form_container');
@@ -354,8 +348,7 @@ $(function () {
             }
         });
     }
-
-    function closeRegisterForm() {
+    function closeRegisterForm(){
         window.location.hash = previousHash || '';
         $('.register_form_container').addClass('hidden');
     }
@@ -404,10 +397,10 @@ $(function () {
         else if ($(e.target).hasClass('add_cocktail_button')) window.location.hash = 'add_cocktail';
     });
 
-    var signedIn = function (bool) {
+    var signedIn = function(bool){
         var form = $(document.forms.users_form);
         user = arguments[1] || '';
-        if (bool) {
+        if(bool) {
             form.html("Hello, " + user + '<br>');
             var resetButton = $(document.createElement('input'));
             resetButton
@@ -416,7 +409,7 @@ $(function () {
                 .attr('value', 'Sign out');
             form.append(resetButton);
 
-        } else {
+        } else{
             form.html("<span>Log in</span><br>" +
                 "<input type='text' name='username' placeholder='username'><br>" +
                 "<input type='password' name='login_password' placeholder='password'><br>" +
@@ -439,8 +432,10 @@ $(function () {
             url: "/search",
             data: queryText,
             method: "GET",
-            complete: function (jqXHR) {
-                generateCocktails(jqXHR)
+            statusCode: {
+                200: function() {
+
+                }
             }
         });
     }
@@ -448,7 +443,7 @@ $(function () {
     $(document.forms.users_form).on('submit', function () {  //sign in form submitting
         var form = $(this),
             submitButton = $('[type=submit]', form);
-        if (submitButton.attr('value') == 'Log in') {
+        if(submitButton.attr('value') == 'Log in') {
             $.ajax({
                 url: "/login",
                 data: form.serialize(),
@@ -459,17 +454,13 @@ $(function () {
                         signedIn(true, user);
                         setCookie('user', user);
                     },
-                    400: function () {
-                        generateMessage('Please fill in all the form fields')
-                    },
-                    401: function () {
-                        generateMessage("Please enter a correct username and password.")
-                    }
+                    400: function (){generateMessage('Please fill in all the form fields')},
+                    401: function (){generateMessage("Please enter a correct username and password.")}
                 }
             });
             return false;
         }
-        else if (submitButton.attr('value') == 'Sign out') {
+        else if(submitButton.attr('value') == 'Sign out'){
             $.ajax({
                 url: '/logout',
                 method: "POST",
@@ -491,7 +482,7 @@ $(function () {
             data: form.serialize(),
             method: "POST",
             statusCode: {
-                200: function () {
+                200: function() {
                     var user = $('input[name=username]', form).val();
                     signedIn(true, user);
                     setCookie('user', user);
@@ -502,7 +493,7 @@ $(function () {
         return false;
     });
 
-    $(document.forms.search_form).on('submit', function () {
+    $(document.forms.search_form).on('submit', function(){
         window.location.hash = $(this).serialize();
         return false;
     });
