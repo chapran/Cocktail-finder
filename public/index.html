@@ -9,7 +9,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">  <!-- about_page.css still exists!! -->
-        <!--<link rel="stylesheet" href="css/constructor.css">-->
+        <link rel="stylesheet" href="css/constructor.css">
         <link rel="stylesheet" href="css/user's_forms.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://use.fontawesome.com/8124c1aecb.js"></script>
@@ -66,20 +66,7 @@
                         <li class="catalogue_list_items"><button id="no-alc">Non-alcohol drinks</button></li>
                     </ul>
                 </li>
-                <li class="additional_filter_li">
-                    <span>Choose additional ingredients for better filtering:</span>
-                    <form id="additional_filter_form">
-                        <fieldset>
-                        <script type="text/template" id="additional_filter">
-                            <%for(var i = 0; i < obj.length; i++) {%>
-                            <label><input type="checkbox" value="<%-obj[i]%>"><%-obj[i]%></label>
-                            <% }; %>
-                        </script>
-                        </fieldset>
-                        <input type="submit" value="Set ingredients">
-                    </form>
-                </li>
-                <!--<li><span class="main_menu_links" id="constructor_button">Constructor</span></li>-->
+                <li><span class="main_menu_links" id="constructor_button">Constructor</span></li>
             </ul>
                 <button class="add_cocktail_button">
                     Add your own cocktail!
@@ -249,6 +236,44 @@
                     <br>
                     <input type="submit" value="Add cocktail">
                 </form>
+            </div>
+
+            <div class="content hidden centered" id="constructor">
+                <div class="constructor_container">
+                    <div id="picked_ingredients">
+                        <img src="img/allcocktails5PS.jpg" alt="cocktails_image">
+                        <div>
+                            <div id="tabs">
+                                <p>You picked following ingredients:</p>
+                            </div>
+                            <button id="search_by_ingredients_button">Search your recipe!</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="ingredients_container">
+                            <h1>Base Spirit:</h1>
+                            <ul class="ingredients_ul">
+
+                                <script type="text/template" id="base_spirit_constructor">
+                                    <%forEach(function (item) {%>
+                                    <li><span><%-item.innerText%></span></li>
+                                    <% }); %>
+                                </script>
+
+                            </ul>
+                        </div>
+                        <div class="ingredients_container">
+                            <h1>Pick your ingredients here:</h1>
+                            <ul class="ingredients_ul">
+                                <script type="text/template" id="additional_filter">
+                                    <%for(var i = 0; i < obj.length; i++) {%>
+                                    <li><span><%-obj[i]%></span></li>
+                                    <% }; %>
+                                </script>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

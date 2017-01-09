@@ -40,37 +40,42 @@ function changeRange(id) {
 }
 
 //constructor functions
-//
-// var containersCollection = document.querySelectorAll('.ingredients_container');
-//
-// for (var i = 0; i < containersCollection.length; i++){
-//     containersCollection[i].addEventListener('click', function (){
-//     var target = event.target;
-//     while (target != this) {
-//         if (target.tagName == 'LI') {
-//             target.classList.toggle('pushedButton');
-//             toggleIngredient(target);
-//         }
-//         target = target.parentNode;
-//     }
-// })}
-//
-// function toggleIngredient (ingredient){
-//     var tabsContainer = document.getElementById('tabs'),
-//         tabsCollection = tabsContainer.querySelectorAll('.singleTab'), // bug with this collection
-//         data = ingredient.querySelector('span').innerHTML;
-//     if(ingredient.className == 'pushedButton') {
-//         var newElem = document.createElement('div');
-//         newElem.innerHTML = data;
-//         newElem.className = 'singleTab';
-//         tabsContainer.appendChild(newElem);
-//     }
-//     else {
-//         for (i = 0; i < tabsCollection.length; i++){
-//             if(tabsCollection[i].innerHTML == data) tabsContainer.removeChild(tabsCollection[i]);
-//         }
-//     }
-// }
+
+var containersCollection = document.querySelectorAll('.ingredients_container');
+
+for (var i = 0; i < containersCollection.length; i++) {
+    containersCollection[i].addEventListener('click', function () {
+        var target = event.target;
+        while (target != this) {
+            if (target.tagName == 'LI') {
+                target.classList.toggle('pushedButton');
+                toggleIngredient(target);
+            }
+            target = target.parentNode;
+        }
+    })
+}
+
+function toggleIngredient(ingredient) {
+    var tabsContainer = document.getElementById('tabs'),
+        tabsCollection = tabsContainer.querySelectorAll('.singleTab'),
+        category = $(ingredient).parent().prev().text(),
+        data = ingredient.querySelector('span').innerHTML;
+    if (ingredient.className == 'pushedButton') {
+        var newElem = document.createElement('div');
+        newElem.innerHTML = data;
+        if (category == "Base Spirit:") {
+            newElem.dataset.baseSpirit = true;
+        }
+        newElem.classList.add('singleTab');
+        tabsContainer.appendChild(newElem);
+    }
+    else {
+        for (i = 0; i < tabsCollection.length; i++) {
+            if (tabsCollection[i].innerHTML == data) tabsContainer.removeChild(tabsCollection[i]);
+        }
+    }
+}
 
 //details of the recipe function !!! class and this function can be optimized if there would be more menus
 
@@ -86,6 +91,7 @@ $(function () {
         method: 'GET',
         complete: function (jqXHR) {
             generateCocktails(jqXHR);
+            generateConstructor();
             $(window).trigger('hashchange');
         }
     });
@@ -119,8 +125,6 @@ $(function () {
         var container = $('.catalogue');
         $('.single_drink', container).remove();
         container.append(cocktails_grid_template_func(cocktails));
-        setFilters();
-        // generateConstructor();
 
         $('.filter').on('click', function (e) {
             if (e.target.tagName == 'BUTTON') {
@@ -133,20 +137,24 @@ $(function () {
     function setCollectionHeading() {
         var pathArray = decodeURI(window.location.hash).split('/'),
             headingContainer = $("#cocktails_heading");
-        if (pathArray[0] === "") {
-            headingContainer.text("All cocktails");
-        }
-        else if (pathArray[0] === "#categories") {
-            if (pathArray[1] === "no-alc") {
-                headingContainer.text("Non-alcohol drinks");
-            } else {
-                var category = $('#' + pathArray[1]).prev().text(),
-                    value = $('[data-hash=\"' + pathArray[2] + '\"]').text();
-                headingContainer.text(category + ": " + value);
+        if(arguments){
+            headingContainer.text(arguments[0]);
+        } else {
+            if (pathArray[0] === "") {
+                headingContainer.text("All cocktails");
             }
-        }
-        else if (pathArray[0].split('=')[0] === "#search") {
-            headingContainer.text('Search results for \"' + pathArray[0].split('=')[1] + '\"');
+            else if (pathArray[0] === "#categories") {
+                if (pathArray[1] === "no-alc") {
+                    headingContainer.text("Non-alcohol drinks");
+                } else {
+                    var category = $('#' + pathArray[1]).prev().text(),
+                        value = $('[data-hash=\"' + pathArray[2] + '\"]').text();
+                    headingContainer.text(category + ": " + value);
+                }
+            }
+            else if (pathArray[0].split('=')[0] === "#search") {
+                headingContainer.text('Search results for \"' + pathArray[0].split('=')[1] + '\"');
+            }
         }
     }
 
@@ -182,9 +190,11 @@ $(function () {
                 '#about': function () {
                     showPage('#about_page');
                 },
-                // '#constructor': function(){
-                //     showPage('#constructor');
-                // },
+                '#constructor': function () {
+                    if(window.location.hash.split('#constructor')[1] !== ''){
+                        searchRecipe();
+                    } else showPage('#constructor');
+                },
                 '#categories': function () {
                     var path = url.split('#')[1].trim();
                     getCollection(path);
@@ -268,35 +278,30 @@ $(function () {
         return overallSize;
     }
 
-    // function generateConstructor() {
-    //     var spirits = $('#baseSpirit').find('li'),
-    //         base_spirit_template = $('#base_spirit_constructor').html(),
-    //         compiled = _.template(base_spirit_template);
-    //
-    //     console.log(spirits);
-    //
-    //     var container = $('.ingredients_ul:nth-child(0)');
-    //     container.append(compiled(spirits))
-    // }
+    function generateConstructor() {
+        var spirits = document.querySelectorAll("#baseSpirit span"),
+            theBaseSpiritTemplateScript = $('#base_spirit_constructor').html(),
+            theBaseSpiritTemplate = _.template(theBaseSpiritTemplateScript);
 
-    function setFilters() {
-        var ingredients = [];
+        var containers = $('.ingredients_ul');
+        $(containers[0]).html(theBaseSpiritTemplate(spirits));
+
+        var allIngredients = [];
         cocktails.forEach(function (item) {
             var ingrArray = item['ingredients'];
             _.each(ingrArray, function (obj) {
-                if (ingredients.indexOf(obj['ingr']) == -1) {
-                    ingredients.push(obj['ingr']);
+                if (allIngredients.indexOf(obj['ingr']) == -1) {
+                    allIngredients.push(obj['ingr']);
                 }
             });
         });
 
-        ingredients = ingredients.sort();
+        allIngredients = allIngredients.sort();
 
-        var theTemplateScript = $("#additional_filter").html(),
-            theTemplate = _.template(theTemplateScript);
+        var theIngrTemplateScript = $("#additional_filter").html(),
+            theIngrTemplate = _.template(theIngrTemplateScript);
 
-        var fieldset = $('#additional_filter_form').find("fieldset");
-        fieldset.append(theTemplate(ingredients));
+        $(containers[1]).html(theIngrTemplate(allIngredients));
     }
 
     function renderCocktailInfo(id, data) {
@@ -382,9 +387,9 @@ $(function () {
                     window.location.hash = '';
                     break;
 
-                // case 'constructor_button':
-                //     window.location.hash = 'constructor';
-                //     break;
+                case 'constructor_button':
+                    window.location.hash = 'constructor';
+                    break;
             }
         }
         else if (e.target.matches('#no-alc')) {
@@ -436,6 +441,31 @@ $(function () {
             method: "GET",
             complete: function (jqXHR) {
                 generateCocktails(jqXHR)
+            }
+        });
+    }
+
+    function searchRecipe() {
+        var filters = window.location.hash.split('#constructor/')[1];
+        console.log(filters);
+
+        $.ajax({
+            url: "/match_recipe",
+            data: filters,
+            method: "GET",
+            complete: function (jqXHR) {
+                generateCocktails(jqXHR);
+                hideViews();
+                $('#all_cocktails').removeClass('hidden');
+                setCollectionHeading('Cocktails that match your recipe:');
+                var backButton = document.createElement('button');
+                backButton.innerHTML = 'Return to the constructor';
+                backButton.id ='back_to_constructor_button';
+                $('.main_section').append(backButton);
+
+                $(backButton).on('click', function () {
+                    window.location.hash = '#constructor';
+                })
             }
         });
     }
@@ -518,7 +548,21 @@ $(function () {
             }
         });
         return false;
-    })
+    });
+
+    $('#search_by_ingredients_button').on('click', function () {
+        var tabs = $('.singleTab'),
+            filters = {};
+        filters.ingredients = [];
+        _.forEach(tabs, function (item) {
+            if (item.dataset.baseSpirit) {
+                filters.baseSpirit = item.innerHTML;
+            } else filters.ingredients.push(item.innerHTML);
+        });
+
+        window.location.hash = '#constructor/' + $.param(filters);
+    });
+
 });
 
 $(function () {

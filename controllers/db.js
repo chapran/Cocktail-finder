@@ -41,5 +41,31 @@ module.exports = function (app) {
             res.send(result);
             res.end();
         });
+    });
+
+    app.get('/match_recipe', function (req, res) {
+        var baseSpiritQuery,
+            query = [];
+        if(req.query.baseSpirit){
+            var tmp;
+            if(req.query.baseSpirit.indexOf('|') !== -1){
+                tmp = decodeURIComponent(req.query.baseSpirit.split(' ').join(''))
+            } else tmp = decodeURIComponent(req.query.baseSpirit);
+            baseSpiritQuery = JSON.parse('{\"search_categories.baseSpirit\": \"' + tmp + '\"}')
+        } else baseSpiritQuery = {};
+        if(req.query.baseSpirit){
+            query.push(baseSpiritQuery);
+        }
+        if(req.query.ingredients){
+            req.query.ingredients.forEach(function (item) {
+                query.push(JSON.parse('{\"ingredients.ingr\": \"' + item + '\"}'))
+            });
+        }
+
+        var collection = Cocktail.find().and(query);
+        collection.lean().exec(function (err, result) {
+            res.send(result);
+            res.end();
+        });
     })
 };

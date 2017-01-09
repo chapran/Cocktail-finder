@@ -1,0 +1,104 @@
+.constructor_container{
+    padding: 10px;
+}
+#picked_ingredients{
+    position: relative;
+    border: 2px solid #A5A5A5;
+    height: 375px;
+    width: 600px;
+}
+
+#picked_ingredients > img{
+    opacity: 0.7;
+    height: 100%;
+}
+
+#picked_ingredients > div{
+    height: 375px;
+    width: 600px;
+    position: absolute;
+    top: 0;
+}
+#tabs {
+    padding: 5px;
+    width: 100%;
+}
+.singleTab{
+    color: #1021e3;
+    background: #30e0ff;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 5px;
+    font-weight: bold;
+    display: inline-block;
+    -webkit-box-shadow: 1px 1px 1px 1px #1021e3;
+    -moz-box-shadow: 1px 1px 1px 1px #1021e3;
+    box-shadow: 1px 1px 1px 1px #1021e3;
+}
+
+.singleTab[data-base-spirit]{
+    background: #e77e30;
+}
+
+#search_by_ingredients_button{
+    border-width: 2px;
+    width: 300px;
+    font: 30px "fantasy", sans-serif;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+
+.ingredients_container{
+    /*width: 80%;*/
+}
+.ingredients_container h1{
+    margin-left: 10%;
+}
+.ingredients_ul {
+    /*background-color: #16e7e3;*/
+    padding-left: 0;
+    /*border: 1px solid black;*/
+    list-style: none;
+    /*text-align: center;*/
+}
+
+.ingredients_ul > li{
+    cursor: pointer;
+    background-color: #7fe0e7;
+    text-align: center;
+    margin: 5px;
+    padding: 3px;
+    display: inline-block;
+    min-width: 70px;
+    height: 40px;
+    border: 3px outset #a5a5a5;
+    border-radius: 5px;
+}
+
+.pushedButton{
+    border-style: inset !important;
+    background-color: #2E88E7 !important;
+}
+
+.ingredients_ul > li:active{
+    border: 3px inset #a5a5a5;
+    background-color: #16e7e3;
+}
+
+.ingredients_ul span{
+    line-height: 40px;
+}
+
+#back_to_constructor_button{
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+    height: 50px;
+    line-height: 50px;
+    position: fixed;
+    right: 10%;
+    top: 50%;
+}
+

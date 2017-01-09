@@ -71,6 +71,7 @@ body{
     border-radius: 10px;
     font-size: 14px;
     background: white url('/../img/searchicon.png') no-repeat 10px 5px;
+    background: white url('/../img/searchicon.png') no-repeat 10px 5px;
     padding: 8px 20px 8px 40px;
     -webkit-transition: width 0.6s ease-in-out;
     transition: width 0.6s ease-in-out;
@@ -174,27 +175,6 @@ body{
     text-decoration: none;
     color: #1729cb;
     text-shadow: 0 0 2px #fcff81;
-}
-
-.additional_filter_li{
-    padding: 7px;
-}
-
-.additional_filter_li > *,
-#additional_filter_form > *{
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-#additional_filter_form fieldset{
-    background-color: #fff;
-    height: 100px;
-    overflow-y: scroll;
-}
-
-#additional_filter_form label{
-    display: block;
-    text-align: left;
 }
 
             /* range styles */
