@@ -112,6 +112,7 @@ $(function () {
         cocktails = JSON.parse(data.responseText);
         cocktails.forEach(function (item) {
             item.size = calculateSize(item);
+            item.ingrQuantity = item.ingredients.length;
         });
         setCollectionHeading();
         compileAndListen();
@@ -128,7 +129,29 @@ $(function () {
 
         $('.filter').on('click', function (e) {
             if (e.target.tagName == 'BUTTON') {
-                sort_cocktails(e.target)
+                var hashArray = window.location.hash.split('/');
+                if (e.target.name == 'sort') {
+                    var index;
+                    if (~window.location.hash.indexOf('sort')) {
+                        if (~hashArray.indexOf('sort=name')) {
+                            index = hashArray.indexOf('sort=name')
+                        }
+                        else if (~hashArray.indexOf('sort=size')) {
+                            index = hashArray.indexOf('sort=size')
+                        }
+                        hashArray[index] = 'sort=' + e.target.value;
+                        window.location.hash = hashArray.join('/');
+                    } else window.location.hash += '/sort=' + e.target.value;
+                }
+                else if (e.target.name == 'filter'){
+                    if (~window.location.hash.indexOf('ingredients')){
+                        for(var i = 0; i < hashArray.length; i++){
+                            if(hashArray[i].match(/ingredients/i)) index = i;
+                        }
+                        hashArray[index] = 'ingredients=' + $('#i_quantity').val();
+                        window.location.hash = hashArray.join('/');
+                    } else window.location.hash += '/ingredients=' + $('#i_quantity').val();
+                }
             }
         });
         clickedDrinkListener();
@@ -137,24 +160,24 @@ $(function () {
     function setCollectionHeading() {
         var pathArray = decodeURI(window.location.hash).split('/'),
             headingContainer = $("#cocktails_heading");
-        if(arguments){
-            headingContainer.text(arguments[0]);
-        } else {
-            if (pathArray[0] === "") {
-                headingContainer.text("All cocktails");
+
+        if (pathArray[0] === "") {
+            headingContainer.text("All cocktails");
+        }
+        else if (pathArray[0] === "#categories") {
+            if (pathArray[1] === "no-alc") {
+                headingContainer.text("Non-alcohol drinks");
+            } else {
+                var category = $('#' + pathArray[1]).prev().text(),
+                    value = $('[data-hash=\"' + pathArray[2] + '\"]').text();
+                headingContainer.text(category + ": " + value);
             }
-            else if (pathArray[0] === "#categories") {
-                if (pathArray[1] === "no-alc") {
-                    headingContainer.text("Non-alcohol drinks");
-                } else {
-                    var category = $('#' + pathArray[1]).prev().text(),
-                        value = $('[data-hash=\"' + pathArray[2] + '\"]').text();
-                    headingContainer.text(category + ": " + value);
-                }
-            }
-            else if (pathArray[0].split('=')[0] === "#search") {
-                headingContainer.text('Search results for \"' + pathArray[0].split('=')[1] + '\"');
-            }
+        }
+        else if (pathArray[0].split('=')[0] === "#search") {
+            headingContainer.text('Search results for \"' + pathArray[0].split('=')[1] + '\"');
+        }
+        else if (pathArray[0] === '#constructor' && pathArray[1]) {
+            headingContainer.text('Cocktails that match your recipe:')
         }
     }
 
@@ -191,9 +214,11 @@ $(function () {
                     showPage('#about_page');
                 },
                 '#constructor': function () {
-                    if(window.location.hash.split('#constructor')[1] !== ''){
+                    if (window.location.hash.split('#constructor')[1] !== '') {
                         searchRecipe();
-                    } else showPage('#constructor');
+                    } else {
+                        showPage('#constructor');
+                    }
                 },
                 '#categories': function () {
                     var path = url.split('#')[1].trim();
@@ -241,9 +266,9 @@ $(function () {
         });
     }
 
-    function sort_cocktails(target) {
+    function sortCocktails(target) {
         var collection = $('.single_drink');
-        if (target.name == 'name') {
+        if (target.value == 'name') {
             collection.sort(function (a, b) {
                 var textA = $(a).find('.info_container').text(),
                     textB = $(b).find('.info_container').text();
@@ -252,7 +277,7 @@ $(function () {
                 return 0;
             })
         }
-        else if ((target.name == 'size')) {
+        else if ((target.value == 'size')) {
             collection.sort(function (a, b) {
                 if ($(a).data('size') > $(b).data('size')) return 1;
                 else if ($(a).data('size') < $(b).data('size')) return -1;
@@ -263,6 +288,29 @@ $(function () {
         $('.single_drink', container).remove();
         container.append(collection);
         clickedDrinkListener();
+    }
+
+    function filterByIngredientsQuantity() {
+        var catalogue = $('.catalogue'),
+            quantity = $('#i_quantity').val();
+        if (catalogue.find('p')) {
+            catalogue.find('p').remove();
+        }
+        var collection = $('.single_drink');
+        _.each(collection, function (item) {
+            if ($(item).hasClass('hidden')) {
+                $(item).removeClass('hidden');
+            }
+            if (item.dataset.ingrQuantity !== quantity) {
+                $(item).addClass('hidden');
+            }
+        });
+
+        if ($('.single_drink.hidden').length === collection.length) {
+            var p = document.createElement('p');
+            p.innerHTML = 'Sorry, no matched cocktails for your filter options';
+            catalogue.append(p);
+        }
     }
 
     function calculateSize(obj) {
@@ -457,10 +505,10 @@ $(function () {
                 generateCocktails(jqXHR);
                 hideViews();
                 $('#all_cocktails').removeClass('hidden');
-                setCollectionHeading('Cocktails that match your recipe:');
+
                 var backButton = document.createElement('button');
                 backButton.innerHTML = 'Return to the constructor';
-                backButton.id ='back_to_constructor_button';
+                backButton.id = 'back_to_constructor_button';
                 $('.main_section').append(backButton);
 
                 $(backButton).on('click', function () {
@@ -589,3 +637,20 @@ $(function () {
         }
     });
 });
+
+// function checkFilters(){
+//     var query = window.location.search;
+//     if(query !== ''){
+//         var filterQuery;
+//         if(query.split('=')[0] == 'sort'){
+//             filterQuery = query.split('=')[1];
+//             sortCocktails(filterQuery);
+//         } else if (query.split('=')[0] == 'quantity' && query.split('=')[1] != ""){
+//             filterByIngredientsQuantity(window.location.search.split('=')[1])
+//         }
+//     }
+// }
+//
+// function clearFilters(){
+//     window.location.search = '';
+// }

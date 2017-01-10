@@ -114,18 +114,16 @@
                 <div class="filter">
                     <div>
                         <span>Sort:</span>
-                        <button name="name">Name</button>
-                        <button name="size">Size</button>
+                        <button name='sort' value="name">Name</button>
+                        <button name='sort' value="size">Size</button>
                     </div>
-                    <div>
-                        <span>Filter:</span>
-                        <button>Ingredients quantity:</button>
-                        <label>
-                            <input id="i_quantity" type="range" min='1' max="9" oninput="changeRange('i_quantity')"
-                                   onchange="changeRange('i_quantity')">
-                        </label>
-                        <button>Strength</button>
-                    </div>
+	                <div>
+		                <span>Filter by ingredients quantity:</span>
+		                <label>
+			                <input id="i_quantity" type="number" min='2' max="6" name="quantity">
+		                </label>
+		                <button name='filter'>apply</button>
+	                </div>
                 </div>
                 <div class='cocktails'>
                     <div class='catalogue centered'>
@@ -134,7 +132,7 @@
 
                         <script type="text/template" id="all-cocktails-template">
                             <%forEach(function (item) {%>
-                            <div class="single_drink" data-id="<%-item._id%>" data-size="<%-item.size%>">
+                            <div class="single_drink" data-id="<%-item._id%>" data-size="<%-item.size%>" data-ingr-quantity="<%-item.ingrQuantity%>">
                                 <div class="wrap_image">
                                     <img src="<%-item.image%>" alt="<%-item.name%> picture">
                                 </div>
