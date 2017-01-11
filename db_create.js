@@ -51,6 +51,7 @@ function createCocktailsCollection(callback) {
 
         async.each(parsedDB, function (cocktailData, callback) {
             var cocktail = new mongoose.models.Cocktail(cocktailData);
+debugger;
             cocktail.save(callback);
         }, callback);
     });

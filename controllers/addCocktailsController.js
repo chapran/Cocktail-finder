@@ -28,3 +28,15 @@ function saveToDB(req, res, next) {
         res.end();
     });
 }
+
+// {
+//     name: cocktailData.name,
+//         image: cocktailData.image,
+//     glass: cocktailData.glass
+// });
+// cocktail.about.push(cocktailData.about);
+// cocktail.details.push(cocktailData.details);
+// cocktail.ingredients.push({
+//     ingr: cocktailData.ingredients[0]['ingr'],
+//     quantity: cocktailData.ingredients[0]['quantity']
+// }

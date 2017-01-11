@@ -22,6 +22,14 @@ body{
     border-bottom: 5px solid black;
 }
 
+.header_holder:after{
+    content: "";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+
 .main_header {
     margin: 0 0 0 10%;
     text-align: center;
@@ -31,6 +39,10 @@ body{
 .openbtn {
     font-size:30px;
     cursor:pointer;
+    position: fixed;
+    top: 50px;
+    left: 20px;
+    z-index: 1;
 }
 
 /* The side navigation menu */
@@ -39,7 +51,7 @@ body{
     height: 100%;
     width: 290px;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     background-color: #f0f0f0;
     top: 0;
     left: -290px;
@@ -272,7 +284,7 @@ footer {
     width: 100%;
     min-height: 50px;
     background-color: #000000;
-    z-index: 1;
+    z-index: 3;
 }
 
 footer div {
@@ -557,6 +569,10 @@ footer div {
 .sn_list_items img{
     height: 40px;
     vertical-align: middle;
+}
+
+.error_page h3{
+    font-size: 40px;
 }
 
         /*class for hidden elements*/

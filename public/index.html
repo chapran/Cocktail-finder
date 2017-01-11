@@ -216,10 +216,10 @@
                         <textarea name="about" id="add_about" rows="3" cols="30"></textarea>
                     </fieldset>
                     <fieldset>Ingredients of your cocktail: <br>
-                        <label for="add_ingr1">Ingredient:</label>
-                        <input type="text" name="ingr" id="add_ingr1"> <br>
-                        <label for="add_quantity1">Quantity (if any...):</label>
-                        <input type="number" name="quantity" id="add_quantity1">
+                        <label for="add_ingr0">Ingredient:</label>
+                        <input type="text" name='ingredients[0].ingr' id="add_ingr0"> <br>
+                        <label for="add_quantity0">Quantity (if any...):</label>
+                        <input type="text" name='ingredients[0].quantity' id="add_quantity0">
                     </fieldset>
                     <fieldset><label for="add_glass">Select glass type:</label>
                         <select name="glass" id="add_glass">
@@ -228,7 +228,7 @@
                             <option value="Cocktail">Cocktail</option>
                             <option value="Shot">Shot</option>
                         </select> <br>
-                        <label for="add_details">Place for some preparation details (if any...):</label>
+                        <label for="add_details">Place for some preparation steps (if you know any...):</label>
                         <textarea name="details" id="add_details" rows="3" cols="30"></textarea>
                     </fieldset>
                     <br>
@@ -316,6 +316,10 @@
 
             <!--End of template-->
 
+        </div>
+
+        <div class="error_page hidden centered">
+            <h3>Sorry, wrong url!</h3>
         </div>
 
         <footer>
