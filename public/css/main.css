@@ -2,13 +2,13 @@ html{
     height:100%;
 }
 body{
-    background-color: #7e928b !important;
+    background-color: whitesmoke !important;
     min-height: 100%;
     position: relative;
     overflow-x: hidden;
 }
 .main_section, .catalogue{
-    background-color: #7e928b;
+    background-color: whitesmoke;
 }
 
 /*Header styles*/
@@ -376,7 +376,7 @@ footer div {
     border-top: 3px solid black;
     border-bottom: 3px solid black;
     text-align: right;
-    background-color: #586760;
+    background-color: silver;
 }
 
 .filter > *{
@@ -386,6 +386,9 @@ footer div {
     margin: 0 1%;
     padding: 3px 20px;
     border: 2px solid black;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
     background-color: #ff833a;
 }
 

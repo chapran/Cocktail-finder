@@ -1,4 +1,4 @@
-var mongoose = require('lib/mongoose'),
+var mongoose = require('./lib/mongoose'),
     fs = require('fs'),
     async = require('async');
 
@@ -24,8 +24,8 @@ function dropDatabase(callback) {
 }
 
 function requireModels(callback) {
-    require('models/user');
-    require('models/cocktailsModel');
+    require('./models/user');
+    require('./models/cocktailsModel');
 
     async.each(Object.keys(mongoose.models), function (modelName, callback) {
         mongoose.models[modelName].ensureIndexes(callback);
