@@ -1,4 +1,4 @@
-var mongoose = require('lib/mongoose'),
+var mongoose = require('../lib/mongoose'),
     Cocktail = require('../models/cocktailsModel').Cocktail,
     db = mongoose.connection.db;
 

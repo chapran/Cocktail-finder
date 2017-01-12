@@ -5,6 +5,9 @@
   "scripts": {
     "start": "node app.js"
   },
+  "engines": {
+    "node": "~6.9.2"
+  },
   "dependencies": {
     "async": "^2.1.4",
     "body-parser": "~1.15.2",

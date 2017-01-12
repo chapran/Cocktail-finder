@@ -506,7 +506,6 @@ $(function () {
 
     function searchRecipe() {
         var filters = window.location.hash.split('#constructor/')[1];
-        console.log(filters);
 
         $.ajax({
             url: "/match_recipe",
