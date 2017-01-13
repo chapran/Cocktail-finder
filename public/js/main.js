@@ -131,13 +131,13 @@ $(function () {
                     } else window.location.hash += '/sort=' + e.target.value;
                 }
                 else if (e.target.name == 'filter') {
-                    if (~window.location.hash.indexOf('ingredients')) {
+                    if (~window.location.hash.indexOf('ingredients_q')) {
                         for (i = 0; i < hashArray.length; i++) {
-                            if (hashArray[i].match(/ingredients/i)) index = i;
+                            if (hashArray[i].match(/ingredients_q/i)) index = i;
                         }
-                        hashArray[index] = 'ingredients=' + $('#i_quantity').val();
+                        hashArray[index] = 'ingredients_q=' + $('#i_quantity').val();
                         window.location.hash = hashArray.join('/');
-                    } else window.location.hash += '/ingredients=' + $('#i_quantity').val();
+                    } else window.location.hash += '/ingredients_q=' + $('#i_quantity').val();
                 }
             }
         });
@@ -269,9 +269,9 @@ $(function () {
             var sortBy = hashArray[index].split('=')[1];
             sortCocktails(sortBy);
         }
-        if (~window.location.hash.indexOf('ingredients')) {
+        if (~window.location.hash.indexOf('ingredients_q')) {
             for (i = 0; i < hashArray.length; i++) {
-                if (hashArray[i].match(/ingredients/i)) index = i;
+                if (hashArray[i].match(/ingredients_q/i)) index = i;
             }
             var quantity = hashArray[index].split('=')[1];
             filterByIngredientsQuantity(quantity);
