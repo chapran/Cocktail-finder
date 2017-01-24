@@ -49,12 +49,12 @@ body{
 
 .sidenav {
     height: 100%;
-    width: 290px;
+    width: 250px;
     position: fixed;
     z-index: 2;
     background-color: #f0f0f0;
     top: 0;
-    left: -290px;
+    left: -250px;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 70px;
     border-right: 3px outset #b3b3b3;
@@ -62,6 +62,10 @@ body{
     -webkit-box-shadow: 3px 0 5px 1px #16e7e3;
     -moz-box-shadow: 3px 0 5px 1px #16e7e3;
     box-shadow: 3px 0 5px 1px #16e7e3;
+}
+
+.sidenav.opened{
+    left: 0;
 }
 
 .closebtn {
@@ -115,8 +119,8 @@ body{
 
 .add_cocktail_button{
     margin: 25px 5px 0;
-    width: 275px;
-    height: 110px;
+    width: 235px;
+    height: 100px;
     font-size: 25px;
     font-style: italic;
     font-weight: bold;
@@ -124,7 +128,7 @@ body{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background: url('../img/allcocktails4_small.jpg') #fff;
+    background: url('../img/allcocktails4_small.jpg') #fff no-repeat;
     background-size: contain;
     transition: 0.3s;
 }
@@ -142,48 +146,55 @@ body{
 .catalogue_list {
     list-style: none;
     z-index: 0;
-    /*border: 2px inset #b3b3b3;*/
-    margin: auto 20% auto 20%;
     padding: 0;
     /*background-color: white;*/
 }
 
 .catalogue_list_items > button {
-    margin: 5px auto 5px auto;
-    padding: 5px;
-    background-color: #ffcba0;
+    margin: 5px auto 5px 10px;
+    width: 75%;
+    padding: 10px;
+    background-color: #a5fcff;
     font-weight: bold;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.catalogue_list_items > button:active {
+    background-color: #8ff;
 }
 
 .nav_menu_options {
     list-style: none;
+    display: none;
     border: 3px inset;
     -moz-border-image: -moz-linear-gradient(left, #999, #f0f0f0);
     -webkit-border-image: -webkit-linear-gradient(left, #999, #f0f0f0);
     border-image: linear-gradient(to right, #999, #f0f0f0) 1;
     border-right: none;
     padding-left: 0;
-    margin-left: 10%;
+    margin: auto 20% auto 10%;
 }
 
 
 .nav_menu_options li {
     background-color: #f0f0f0;
-    background: -webkit-linear-gradient(left, #ffcba0, #f0f0f0); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(right, #ffcba0, #f0f0f0); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(right, #ffcba0, #f0f0f0); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, #ffcba0, #f0f0f0);
+    padding-left: 5px;
+    background: -webkit-linear-gradient(left, #a5fcff, #f0f0f0); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #a5fcff, #f0f0f0); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #a5fcff, #f0f0f0); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #a5fcff, #f0f0f0);
 }
 
 .nav_menu_options li:before {
     content: '•';
-    color: #ff0f22;
+    color: #000000;
     padding: 5px;
 }
 
 .nav_menu_options span {
     cursor: pointer;
-    text-decoration: none;
+    font-size: .95rem;
     color: #1729cb;
     text-shadow: 0 0 2px #fcff81;
 }

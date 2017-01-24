@@ -2,30 +2,26 @@
 
 var openedNav = false;
 function openNav() {
-    $(".sidenav").css('left', "0");
+    $(".sidenav").addClass('opened');
     openedNav = true;
-    // $(".main_section").css('marginLeft', "290px");
 }
 
 function closeNav() {
-    $(".sidenav").css('left', '-290px');
+    $(".sidenav").removeClass('opened');
     openedNav = false;
-    // $(".main_section").css('marginLeft', 0);
 }
 
 //other navbar functions
 
-function showElems(id) {
-    var elem = $("#" + id),
-        lis = elem.parent().siblings();
-    for (var i = 0; i < lis.length; i++) {
-        var tab = $(lis[i]).find('.nav_menu_options')[0];
-        if (!$(tab).hasClass('hidden')) {
-            $(tab).addClass('hidden');
+$('.catalogue_list_items').on('click', 'button', function () {
+    var parent = $(this).parent();
+    _.each(parent.siblings().find('.nav_menu_options'), function (item) {
+        if($(item).css('display') == 'block'){
+            $(item).slideUp();
         }
-    }
-    elem.toggleClass('hidden');
-}
+    });
+    parent.find('.nav_menu_options').slideToggle();
+});
 
 
 //constructor functions
@@ -592,7 +588,6 @@ $(function () {
 
     $(document.forms.add_cocktail_form).on('submit', function () {
         var formData = new FormData(this);
-        console.log(formData);
         $.ajax({
             url: "/add_cocktail",
             data: formData,

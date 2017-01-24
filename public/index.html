@@ -28,10 +28,12 @@
                     <!--<button id="register_button" type="button">Sign up now!</button>-->
                 <!--</span>-->
             </form>
-            <h1 class="main_header">Cocktail constructor</h1>
+            <h1 class="main_header">
+                <span onclick="window.location.hash = ''" style="cursor: pointer">Cocktail constructor</span>
+            </h1>
             <span class='openbtn' onclick="openNav()">&#9776; open</span>
         </header>
-        <aside class="sidenav">
+        <nav class="sidenav">
             <span class="closebtn" onclick="closeNav()">&times;</span>
             <form name='search_form' class="search" method="get">
                 <input type="text" name="search" placeholder="Search..">
@@ -42,8 +44,8 @@
                     <span class="main_menu_links" id="all_cocktails_button">Our catalogue</span>
                     <ul class="catalogue_list">
                         <li class="catalogue_list_items">
-                            <button onclick="showElems('baseSpirit')">Base spirit</button>
-                            <ul class="nav_menu_options hidden" id="baseSpirit">
+                            <button>Base spirit</button>
+                            <ul class="nav_menu_options" id="baseSpirit">
                                 <li><span data-hash="Vodka">Vodka</span></li>
                                 <li><span data-hash="Bourbon|AmericanWhiskey">Bourbon | American Whiskey</span></li>
                                 <li><span data-hash="Tequila">Tequila</span></li>
@@ -53,8 +55,8 @@
                             </ul>
                         </li>
                         <li class="catalogue_list_items">
-                            <button onclick="showElems('cocktailType')">Cocktail Type</button>
-                            <ul class="nav_menu_options hidden" id="cocktailType">
+                            <button>Cocktail Type</button>
+                            <ul class="nav_menu_options" id="cocktailType">
                                 <li><span data-hash="Classics">Classics</span></li>
                                 <li><span data-hash="Margaritas">Margaritas</span></li>
                                 <li><span data-hash="Martinis">Martinis</span></li>
@@ -63,7 +65,9 @@
                                 <li><span data-hash="Shots">Shots</span></li>
                             </ul>
                         </li>
-                        <li class="catalogue_list_items"><button id="no-alc">Non-alcohol drinks</button></li>
+                        <li class="catalogue_list_items">
+                            <button id="no-alc">Non-alcohol drinks</button>
+                        </li>
                     </ul>
                 </li>
                 <li><span class="main_menu_links" id="constructor_button">Constructor</span></li>
@@ -71,7 +75,7 @@
                 <button class="add_cocktail_button">
                     Add your own cocktail!
                 </button>
-        </aside>
+        </nav>
 
         <div class="register_form_container hidden">
             <div class="register">

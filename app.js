@@ -31,8 +31,8 @@ require('./controllers/db')(app);
 require('./controllers/addCocktailsController')(app);
 
 
-http.createServer(app).listen(process.env.PORT || 5000, function () {  //creating the server
-    log.info("server listening on port " + process.env.PORT || 5000)
+http.createServer(app).listen(3000, function () {  //creating the server
+    log.info("server listening on port " + 3000)
 });
 
 // app.use(function (err, req, res, next) {
