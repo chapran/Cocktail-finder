@@ -18,6 +18,9 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
+    <!--[if lt IE 10]>
+        <p>Please upgrade yo</p><p>ur version of Internet Explorer to newer version.</p>
+    <![endif]-->
         <header class="header_holder">
             <form class='users_form' name="users_form">
                 <!--<span>Log in</span><br>-->
@@ -139,9 +142,9 @@
                             <div class="single_drink" data-id="<%-item._id%>" data-size="<%-item.size%>" data-ingr-quantity="<%-item.ingrQuantity%>">
                                 <div class="wrap_image">
                                     <img src="<%-item.image%>" alt="<%-item.name%> picture">
-                                </div>
-                                <div class="info_container">
-                                    <span><%-item.name%></span>
+                                    <div class="info_container">
+                                        <span><%-item.name%></span>
+                                    </div>
                                 </div>
                             </div>
                             <% }); %>

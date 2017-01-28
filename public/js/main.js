@@ -495,6 +495,7 @@ $(function () {
             data: queryText,
             method: "GET",
             complete: function (jqXHR) {
+                showPage("#all_cocktails");
                 generateCocktails(jqXHR)
             }
         });
