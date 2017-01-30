@@ -37,31 +37,6 @@ module.exports = function (app) {
         res.end();
     });
 
-    // app.post('/', function (req, res, next) {
-    //     var username = req.body.username,
-    //         password = req.body.login_password;
-    //     User.findOne({username: username}, function (err, user) {
-    //         if (err) return next(err);
-    //         if (user) {
-    //             if (user.checkPassword(password)) {
-    //                 res.statusCode = 200;
-    //                 res.send({status: 'OK'});
-    //                 res.end();
-    //             }
-    //             else {
-    //                 res.statusCode = 401;
-    //                 res.send({status: 'error', fieldError: 'Incorrect password'});
-    //                 res.end();
-    //             }
-    //         }
-    //         else {
-    //             res.statusCode = 401;
-    //             res.send({status: 'error', fieldError: 'No such username found'});
-    //             res.end();
-    //         }
-    //     })
-    // });
-
     app.post('/register', function (req, res, next) {
         var user = new User({
             firstname: req.body.firstname,

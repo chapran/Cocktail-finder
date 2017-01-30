@@ -16,6 +16,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
 	    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
     </head>
     <body>
     <!--[if lt IE 10]>
@@ -83,7 +84,7 @@
         <div class="register_form_container hidden">
             <div class="register">
                 <h3>Create your account</h3>
-                <form name="reg_form">
+                <form name="reg_form" id="reg_form">
                     <div>
                         <label for="firstname">First name</label>
                         <input type="text" id="firstname" name="firstname" spellcheck="false" placeholder="John"/>
@@ -94,7 +95,7 @@
                     </div>
                     <div>
                         <label for="email">Email</label>
-                        <input type="text" id="email" name="email" spellcheck="false" placeholder="example@email.com"/>
+                        <input type="email" id="email" name="email" spellcheck="false" placeholder="example@email.com"/>
                     </div>
                     <div>
                         <label for="username">Username</label>
@@ -143,7 +144,7 @@
                                 <div class="wrap_image">
                                     <img src="<%-item.image%>" alt="<%-item.name%> picture">
                                     <div class="info_container">
-                                        <span><%-item.name%></span>
+                                        <div><span><%-item.name%></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -245,39 +246,39 @@
 
             <div class="content hidden centered" id="constructor">
                 <div class="constructor_container">
-                    <div id="picked_ingredients">
-                        <img src="img/allcocktails5PS.jpg" alt="cocktails_image">
-                        <div>
-                            <div id="tabs">
-                                <p>You picked following ingredients:</p>
-                            </div>
-                            <button id="search_by_ingredients_button">Search your recipe!</button>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ingredients_container">
-                            <h1>Base Spirit:</h1>
-                            <ul class="ingredients_ul">
+					<div>
+						<div id="picked_ingredients">
+							<img src="img/allcocktails5PS.jpg" alt="cocktails_image">
+							<div>
+								<div id="tabs">
+									<p>You picked following ingredients:</p>
+								</div>
+								<button id="search_by_ingredients_button" class="round_button">Search your recipe!</button>
+							</div>
+						</div>
+						<div class="ingredients_container base_spirit_container">
+							<h1>Base Spirit:</h1>
+							<ul class="ingredients_ul">
 
-                                <script type="text/template" id="base_spirit_constructor">
-                                    <%forEach(function (item) {%>
-                                    <li><span><%-item.innerText%></span></li>
-                                    <% }); %>
-                                </script>
+								<script type="text/template" id="base_spirit_constructor">
+									<%forEach(function (item) {%>
+									<li><span><%-item.innerText%></span></li>
+									<% }); %>
+								</script>
 
-                            </ul>
-                        </div>
-                        <div class="ingredients_container">
-                            <h1>Pick your ingredients here:</h1>
-                            <ul class="ingredients_ul">
-                                <script type="text/template" id="additional_filter">
-                                    <%for(var i = 0; i < obj.length; i++) {%>
-                                    <li><span><%-obj[i]%></span></li>
-                                    <% }; %>
-                                </script>
-                            </ul>
-                        </div>
-                    </div>
+							</ul>
+						</div>
+					</div>
+	                <div class="ingredients_container">
+		                <h1>Pick your ingredients here:</h1>
+		                <ul class="ingredients_ul">
+			                <script type="text/template" id="additional_filter">
+				                <%for(var i = 0; i < obj.length; i++) {%>
+				                <li><span><%-obj[i]%></span></li>
+				                <% }; %>
+			                </script>
+		                </ul>
+	                </div>
                 </div>
             </div>
         </div>

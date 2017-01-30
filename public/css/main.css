@@ -202,13 +202,12 @@ body{
             /* footer */
 
 footer {
-    border-top: 3px outset #16e7e3;
     color: #fff;
     position: absolute;
     bottom: 0;
     width: 100%;
     min-height: 50px;
-    background-color: #000000;
+    background-color: #222;
     z-index: 3;
 }
 
@@ -358,26 +357,27 @@ footer div {
 
 .info_container {
     position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: 0;
     color: #fff;
     font: 1em italic cursive;
-    width: 100%;
-    height: 10%;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
 }
 
-.info_container span{
+.info_container div{
     position: relative;
+    margin: 5px auto;
     top: calc(50% - 0.5em);
 }
 
 .single_drink:hover .info_container{
+    background-color: rgba(0, 0, 0, 0.7);
     font-size: 1.3em;
-    height: 20%;
 }
 
 /* selected cocktail recipe */
@@ -536,5 +536,11 @@ footer div {
     .selected_cocktail {
         font-size: .8em;
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .centered{
+        width: 90%;
     }
 }

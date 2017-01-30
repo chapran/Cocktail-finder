@@ -86,12 +86,21 @@ label{
     text-align: right;
 }
 
-.register label {
+.register label:not(.error) {
     width: 25%;
     margin: 10px;
 }
 
-.register input[type=text], .register input[type=password] {
+.register label.error {
+    margin-left: 25%;
+    font-size: .8em;
+    color: red;
+}
+
+.register input[type=text],
+.register input[type=password],
+.register input[type=email]
+{
     width: 65%;
     padding: 5px;
     font-size: 0.9em;
