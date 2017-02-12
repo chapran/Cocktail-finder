@@ -1,33 +1,58 @@
 .users_form{
     margin-right: 5%;
     float: right;
-    /*border: 1px solid black;*/
     border-radius: 5px;
     padding: 5px;
-    /*background-color: aqua;*/
 }
-.users_form > span:nth-child(1){
+
+#greetings{
     font-size: 1.2em;
     font-weight: bold;
 }
-.users_form input{
+.users_form input:not(.users_form_btn){
     border-radius: 2px;
     margin: 2px;
 }
-.users_form input[type = 'submit']{
-    padding: 3px 10px;
-    border: 1px solid #000000;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: #0e96db;
+.users_form_btn{
+    min-height: 30px;
+    padding: 1px 10px;
+    margin-top: 2px;
+    background-color: transparent;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
-.users_form input[type = 'submit']:focus{
-    outline: none;
-}
-.users_form input[type = 'submit']:active{
+
+.users_form_btn:active{
     background-color: #1ed0e7;
 }
+
+.sign_out_div{
+    position: relative;
+}
+
+.dropdown-content {
+    margin-top: 3px;
+    position: absolute;
+    right: 0;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content button {
+    background-color: #f9f9f9;
+    width: 100%;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    border: none;
+}
+
+.dropdown-content button:hover {background-color: #ebebeb
+}
+
 .register_proposition{
     margin-left: 7px;
     font-size: .8em;
@@ -36,13 +61,13 @@
     font-weight: bold;
     border: none;
     background-color: initial;
-    color: #073fe7;
+    color: #0a009b;
 }
 .register_proposition button:active{
     color: #000;
 }
 
-.register_form_container {
+.dropdown_users_form_container {
     z-index: 1;
     position: absolute;
     width: 100%;
@@ -50,12 +75,12 @@
     top: 0;
     transition: 0.7s;
 }
-.register_form_container.hidden{
+.dropdown_users_form_container.hidden{
     top: -100%;
     display: initial;
 }
 
-.register {
+.dropdown_users_form {
     position: absolute;
     right: 0;
     width: 500px;
@@ -69,14 +94,14 @@
     box-shadow: 0 0 30px 0 #000;
 }
 
-.register h3 {
+.dropdown_users_form h3 {
     margin: 0 15px 20px;
     border-bottom: 2px solid #2d75e7;
     padding: 5px 10px 5px 0;
     font-size: 1.1em;
 }
 
-.register div {
+.dropdown_users_form div {
     margin: 0 0 15px 0;
     border: none;
 }
@@ -86,20 +111,20 @@ label{
     text-align: right;
 }
 
-.register label:not(.error) {
+.dropdown_users_form label:not(.error) {
     width: 25%;
     margin: 10px;
 }
 
-.register label.error {
+.dropdown_users_form label.error {
     margin-left: 25%;
     font-size: .8em;
     color: red;
 }
 
-.register input[type=text],
-.register input[type=password],
-.register input[type=email]
+.dropdown_users_form input[type=text],
+.dropdown_users_form input[type=password],
+.dropdown_users_form input[type=email]
 {
     width: 65%;
     padding: 5px;
@@ -108,19 +133,19 @@ label{
     background: rgba(0, 0, 0, 0.07);
 }
 
-.register input[type=text]:focus, .register input[type=password]:focus {
+.dropdown_users_form input[type=text]:focus, .dropdown_users_form input[type=password]:focus {
     background: #FFFFFF;
     /*outline: none;*/
 }
 
-.register .button {
+.dropdown_users_form .button {
     position: relative;
+    color: black;
     left: 40%;
     font-size: 1em;
     border-radius: 5px;
     padding: 10px;
-    border: 1px solid #0502b9;
-    box-shadow: 0 1px 0 0 #16E7E3 inset;
+    border: 1px solid #000;
     background: #0e96db;
     background: -webkit-linear-gradient(#16E7E3, #2d75e7);
     background: -moz-linear-gradient(#16E7E3, #2d75e7);
@@ -128,56 +153,12 @@ label{
     background: linear-gradient(#16E7E3, #2d75e7);
 }
 
-.register .button:hover {
+.dropdown_users_form .button:hover {
     background: -webkit-linear-gradient(#16E7E3, #2f97e7);
     background: -moz-linear-gradient(#16E7E3, #2f97e7);
     background: -o-linear-gradient(#16E7E3, #2f97e7);
     background: linear-gradient(#16E7E3, #2f97e7);
 }
-
-/*.register .sep {*/
-/*border: 1px solid #2d75e7;*/
-/*position: relative;*/
-/*margin: 35px 20px;*/
-/*}*/
-
-/*.register .or {*/
-/*position: absolute;*/
-/*width: 50px;*/
-/*left: 50%;*/
-/*background: #F0F0F0;*/
-/*text-align: center;*/
-/*margin: -10px 0 0 -25px;*/
-/*line-height: 20px;*/
-/*}*/
-
-/*.register .connect {*/
-/*width: 400px;*/
-/*margin: 0 auto;*/
-/*text-align: center;*/
-/*}*/
-
-/*.register .social-buttons {*/
-/*display: inline-block;*/
-/*min-width: 150px;*/
-/*height: 50px;*/
-/*margin: 0 5px 10px;*/
-/*border-radius: 10px;*/
-/*text-shadow: 1px 1px 5px #000000;*/
-/*}*/
-
-/*.register .social-buttons a {*/
-/*display: block;*/
-/*height: 100%;*/
-/*text-decoration: none;*/
-/*color: #FFFFFF;*/
-/*padding: 10px 15px;*/
-/*}*/
-
-/*.register .social-buttons span {*/
-/*font-size: 30px;*/
-/*}*/
-
 
 .add_cocktail_form label{
     width: 25%;
@@ -198,4 +179,25 @@ label{
 .ui-dialog{
     border: 2px solid black;
     font-weight: bold;
+}
+
+#change_password_window .fa-times{
+    float: right;
+    cursor: pointer;
+}
+
+.button.cancel{
+    box-shadow: none;
+    background: #ff3f3f;
+    background: -webkit-linear-gradient(#ff8a00, #ff0000);
+    background: -moz-linear-gradient(#ff8a00, #ff0000);
+    background: -o-linear-gradient(#ff8a00, #ff0000);
+    background: linear-gradient(#ff8a00, #ff0000);
+}
+
+.button.cancel:hover{
+    background: -webkit-linear-gradient(#ff8a00, #ff4100);
+    background: -moz-linear-gradient(#ff8a00, #ff4100);
+    background: -o-linear-gradient(#ff8a00, #ff4100);
+    background: linear-gradient(#ff8a00, #ff4100);
 }

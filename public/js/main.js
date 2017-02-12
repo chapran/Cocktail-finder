@@ -11,6 +11,7 @@ function closeNav() {
     openedNav = false;
 }
 
+
 //other navbar functions
 
 $('.catalogue_list_items').on('click', 'button', function () {
@@ -23,6 +24,24 @@ $('.catalogue_list_items').on('click', 'button', function () {
     parent.find('.nav_menu_options').slideToggle();
 });
 
+//registered user dropdown
+
+function toggleDropdown() {
+    $('.dropdown-content').slideToggle('fast');
+}
+
+$('#users_dropdown_button').on('click', function(){
+    toggleDropdown();
+});
+
+$('#change_password_button').on('click', function () {
+    var window = $('#change_password_window');
+    window.removeClass('hidden');
+    window.on('click', '.fa-times, .cancel', function () {
+        window.addClass('hidden');
+        window.unbind();
+    });
+});
 
 //constructor functions
 
@@ -62,8 +81,19 @@ function toggleIngredient(ingredient) {
     }
 }
 
-//details of the recipe function !!! class and this function can be optimized if there would be more menus
+$(function () {
+    var timer;
+    $('#constructor_hint')
+        .on('mouseenter', function(){timer = setTimeout(function () {
+            $('.oval-thought').fadeIn();
+        }, 700)})
+            .on('mouseleave', function(){
+                clearTimeout(timer);
+                $('.oval-thought').fadeOut();});
+});
 
+
+//application functionality
 
 var cocktails = [], //global var for all the stuff
     previousHash,
@@ -92,6 +122,7 @@ function getCollection(path) {
 }
 
 function generateCocktails(data) {
+    if(!data || !data.length) checkMatchedCocktails('Sorry, no cocktails matched your query');
     cocktails = JSON.parse(data.responseText);
     cocktails.forEach(function (item) {
         item.size = calculateSize(item);
@@ -125,13 +156,17 @@ function compileAndListen() {
                 } else window.location.hash += '/sort=' + e.target.value;
             }
             else if (e.target.name == 'filter') {
+                var i_quantity = $('#i_quantity').val();
                 if (~window.location.hash.indexOf('ingredients_q')) {
                     for (i = 0; i < hashArray.length; i++) {
                         if (hashArray[i].match(/ingredients_q/i)) index = i;
                     }
-                    hashArray[index] = 'ingredients_q=' + $('#i_quantity').val();
+                    if(!i_quantity) {
+                        hashArray.splice(index, 1)
+                    } else hashArray[index] = 'ingredients_q=' + i_quantity;
                     window.location.hash = hashArray.join('/');
-                } else window.location.hash += '/ingredients_q=' + $('#i_quantity').val();
+                } else if(i_quantity)
+                    window.location.hash += '/ingredients_q=' + i_quantity;
             }
         }
     });
@@ -164,7 +199,7 @@ function setCollectionHeading() {
 
 function hideViews() {
     [
-        $('.register_form_container'),
+        $('#register_window'),
         $('.selected_cocktail_holder'),
         $('.main_section').children()
     ].forEach(function (item) {
@@ -201,7 +236,7 @@ function render(url) {
                 if (window.location.hash.split('#constructor')[1] !== '') {
                     searchRecipe();
                 } else {
-                    showPage('#constructor');
+                    showPage('#constructor_page');
                 }
             },
             '#categories': function () {
@@ -275,6 +310,14 @@ function checkFilters() {
     }
 }
 
+function checkMatchedCocktails(str) {
+    if(!$.contains(document.querySelector('.catalogue'), document.querySelector('p'))) {
+        var p = document.createElement('p');
+        p.innerHTML = str;
+        $('.catalogue').append(p);
+    }
+}
+
 function sortCocktails(target) {
     var collection = $('.single_drink');
     if (target == 'name') {
@@ -310,11 +353,9 @@ function filterByIngredientsQuantity(quantity) {
         }
     });
 
-    if ($('.single_drink.hidden').length == collection.length && !$.contains(document.querySelector('.catalogue'), document.querySelector('p'))) {
-        var p = document.createElement('p');
-        p.innerHTML = 'Sorry, no matched cocktails for your filter options';
-        catalogue.append(p);
-    }
+    // if ($('.single_drink.hidden').length == collection.length) {
+    //     checkMatchedCocktails('Sorry, no matched cocktails for your filter options')
+    // }
 }
 
 function calculateSize(obj) {
@@ -398,7 +439,7 @@ function showPage(id) {
 }
 
 function openRegisterForm() {
-    var container = $('.register_form_container');
+    var container = $('#register_window');
     container.removeClass('hidden');
 
     $('body').on('click', function (e) {
@@ -412,7 +453,7 @@ function openRegisterForm() {
 
 function closeRegisterForm() {
     window.location.hash = previousHash || '';
-    $('.register_form_container').addClass('hidden');
+    $('#register_window').addClass('hidden');
 }
 
 function generateMessage(message) {
@@ -456,35 +497,24 @@ $('.sidenav').on('click', function (e) {
     else if ($(e.target).hasClass('add_cocktail_button')) window.location.hash = 'add_cocktail';
 });
 
-var signedIn = function (bool) {
-    var form = $(document.forms.users_form);
-    user = arguments[1] || '';
+function signedIn(bool, user) {
+    var signInDiv = $(".sign_in_div"),
+        signOutDiv = $(".sign_out_div");
     if (bool) {
-        form.html("Hello, " + user + '<br>');
-        var resetButton = $(document.createElement('input'));
-        resetButton
-            .attr('type', 'submit')
-            .attr('name', 'sign_out')
-            .attr('value', 'Sign out');
-        form.append(resetButton);
-
+        signOutDiv.find('#greetings').html("Hello, " + user + '<br>');
+        signOutDiv.show();
+        signInDiv.hide();
     } else {
-        form.html("<span>Log in</span><br>" +
-            "<input type='text' name='username' placeholder='username'><br>" +
-            "<input type='password' name='login_password' placeholder='password'><br>" +
-            "<input type='submit' value='Log in'>" +
-            "<span class='register_proposition'>Not registered yet?" +
-            "<button id='register_button' type='button'>Sign up now!</button>" +
-            "</span>");
+        signOutDiv.hide();
+        signInDiv.show();
 
-        $('.header_holder').find('#register_button').on('click', function (e) {
-            e.preventDefault();
+        $('#register_button').unbind().on('click', function () {
             previousHash = window.location.hash;
 
             window.location.hash = 'register/';
         });
     }
-};
+}
 
 function getSearchQuery(queryText) {
     $.ajax({
@@ -499,7 +529,7 @@ function getSearchQuery(queryText) {
 }
 
 function searchRecipe() {
-    var filters = window.location.hash.split('#constructor/')[1];
+    var filters = window.location.hash.split('/')[1];
 
     $.ajax({
         url: "/match_recipe",
@@ -541,10 +571,25 @@ function registerUser(form) {  //uses jQuery plugin (plugins.js)
     return false;
 }
 
-$(document.forms.users_form).on('submit', function () {  //sign in form submitting
-    var form = $(this),
-        submitButton = $('[type=submit]', form);
-    if (submitButton.attr('value') == 'Log in') {
+function changePassword(form) {
+    $.ajax({
+        url: "/change_password",
+        data: $(form).serialize(),
+        method: "POST",
+        complete: function (jqXHR) {
+                var response = JSON.stringify(jqXHR.responseText);
+                console.log(response);
+                // $('#change_password_window').addClass('hidden')
+                //     .unbind();
+            }
+    });
+    return false;
+}
+
+$(document.forms.users_form).on('click', function (e) {
+    var target = $(e.target);
+    if (target.attr('value') == 'Log in') {
+        var form = $(e.currentTarget);
         $.ajax({
             url: "/login",
             data: form.serialize(),
@@ -565,12 +610,13 @@ $(document.forms.users_form).on('submit', function () {  //sign in form submitti
         });
         return false;
     }
-    else if (submitButton.attr('value') == 'Sign out') {
+    else if ($(target).attr('id') == 'sign_out') {
         $.ajax({
             url: '/logout',
             method: "POST",
             statusCode: {
                 200: function () {
+                    toggleDropdown();
                     signedIn(false);
                     deleteCookie('user');
                 }
@@ -620,17 +666,7 @@ $('#search_by_ingredients_button').on('click', function () {
 });
 
 
-$(function () {
-    var placeholder = null,
-        input_text = $('input[type=text]');
-    input_text.focus(function () {
-        placeholder = $(this).attr("placeholder");
-        $(this).attr("placeholder", "");
-    });
-    input_text.blur(function () {
-        $(this).attr("placeholder", placeholder);
-    });
-});
+//placeholder and image preview functions
 
 $(function () {
     var file = $("input[type=file]")[0];

@@ -65,6 +65,55 @@
     left: 5px;
 }
 
+.oval-thought {
+    position: absolute;
+    width: 200px;
+    padding: 20px 35px;
+    bottom: 55px;
+    left: 265px;
+    text-align: center;
+    color: #fff;
+    background: #075698;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
+    background: -moz-linear-gradient(#2e88c4, #075698);
+    background: -o-linear-gradient(#2e88c4, #075698);
+    background: linear-gradient(#2e88c4, #075698);
+    border-radius: 100%;
+    display: none;
+}
+
+/* creates the larger circle */
+.oval-thought:before {
+    content:"";
+    position: absolute;
+    bottom:-25px;
+    left:50px;
+    width:30px;
+    height:30px;
+    background:#075698;
+    border-radius:30px;
+}
+
+/* creates the smaller circle */
+.oval-thought:after {
+    content:"";
+    position:absolute;
+    bottom:-35px;
+    left:30px;
+    width:15px;
+    height:15px;
+    background:#075698;
+    border-radius:15px;
+}
+
+#constructor_hint{
+    color: #001cce;
+    position: absolute;
+    bottom: 5px;
+    left: 310px;
+    text-shadow: 1px 1px 2px #373737;
+}
+
 .ingredients_container h1{
     margin-left: 10%;
 }

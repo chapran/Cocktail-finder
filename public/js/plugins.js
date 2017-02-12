@@ -81,5 +81,39 @@ $(document).ready(function () {
             registerUser(form);
         }
     });
-
+    $('#change-password').validate({
+        rules: {
+            old_password: {
+                required: true,
+                minlength: 5
+            },
+            new_password: {
+                required: true,
+                minlength: 5
+            },
+            new_password_confirm: {
+                required: true,
+                minlength: 5,
+                equalTo: "#new_password"
+            }
+        },
+        messages: {
+            old_password: {
+                required: "Please, enter your current password",
+                minlength: "Your password consists of least 5 characters"
+            },
+            new_password: {
+                required: "Please, provide new password",
+                minlength: "Your new password must consist of least 5 characters"
+            },
+            new_password_confirm: {
+                required: "Please, provide your new password",
+                minlength: "Your password must consist of least 5 characters",
+                equalTo: "You must enter the same password as above"
+            }
+        },
+        submitHandler: function (form) {
+            changePassword(form);
+        }
+    });
 });

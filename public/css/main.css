@@ -14,12 +14,16 @@ body{
 /*Header styles*/
 
 .header_holder {
+    position: relative;
+    z-index: 1;
     background: -webkit-linear-gradient(top, #ff8a00, #c60000); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(bottom, #ff8a00, #c60000); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(bottom, #ff8a00, #c60000); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to bottom, #ff8a00, #c60000);
     padding: 10px;
-    border-bottom: 5px solid black;
+    -webkit-box-shadow: 0 3px 10px #2d2d2d;
+    -moz-box-shadow: 0 3px 10px #2d2d2d;
+    box-shadow: 0 3px 10px #2d2d2d;
 }
 
 .header_holder:after{
@@ -56,7 +60,7 @@ body{
     top: 0;
     left: -220px;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 70px;
+    padding-top: 50px;
     border-right: 3px outset #b3b3b3;
     transition: 0.5s;
     -webkit-box-shadow: 3px 0 5px 1px #16e7e3;
@@ -280,10 +284,6 @@ footer div {
     padding-bottom: 50px;
 }
 
-.content {
-    margin: 0 10px;
-}
-
 .centered{
     width: 60%;
     margin: 0 auto;
@@ -296,9 +296,9 @@ footer div {
 }
 
 .filter {
-    padding: 5px 0 5px 0;
-    border-top: 3px solid black;
-    border-bottom: 3px solid black;
+    position: relative;
+    padding: 5px 0;
+    box-shadow: 0 1px 5px 1px;
     text-align: right;
     background-color: silver;
 }
@@ -325,16 +325,16 @@ footer div {
 }
 
 .catalogue {
-    border-left: 2px groove #575757;
-    border-right: 2px groove #575757;
     display: flex;
     flex-flow: row wrap;
-    padding: 10px 5%;
+    justify-content: center;
+    padding: 10px 3%;
+    box-shadow: 0 0 10px;
 }
 
 .single_drink {
     max-width: 250px;
-    flex: 1 1 200px;
+    flex: 1 1 230px;
     margin: 10px;
     display: flex;
     flex-flow: row wrap;
@@ -344,7 +344,7 @@ footer div {
 
 .wrap_image {
     position: relative;
-    flex: 1 1 200px;
+    flex: 1 1 230px;
     border-radius: 5%;
     border: 2px inset #7b7b7b;
     overflow: hidden;
@@ -388,7 +388,8 @@ footer div {
     position: fixed;
     top: 0;
     right: 0;
-    transition: 0.7s;
+    transition: .7s;
+    z-index: 2;
 }
 
 .selected_cocktail_holder.hidden{

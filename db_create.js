@@ -36,7 +36,7 @@ function createUsers(callback) {
 
     var users = [
         {firstname: 'Vasya', lastname: "B", email: 'example@', username: 'vasya', password: 'supervasya'},
-        {firstname: 'Andriy', lastname: "K", email: 'example@2', username: 'andriy', password: '1111'}
+        {firstname: 'Andriy', lastname: "K", email: 'example@2', username: 'andriy', password: '11111'}
     ];
 
     async.each(users, function (userData, callback) {
@@ -51,7 +51,6 @@ function createCocktailsCollection(callback) {
 
         async.each(parsedDB, function (cocktailData, callback) {
             var cocktail = new mongoose.models.Cocktail(cocktailData);
-debugger;
             cocktail.save(callback);
         }, callback);
     });
