@@ -3,7 +3,6 @@ var User = require('../models/user').User,
     LocalStrategy = require('passport-local').Strategy,
     log = require('../lib/log')(module),
     mongoose = require('../lib/mongoose'),
-    db = mongoose.connection.db,
     ObjectId = mongoose.Types.ObjectId;
 
 module.exports = function (app) {
@@ -93,15 +92,15 @@ module.exports = function (app) {
             if(!user) res.send('Not authorised');
 
             if (!user.checkPassword(req.body.old_password)) {
-                res.send('Incorrect password');
-                res.end();
+                res.send('Password incorrect');
+
             } else {
-                db.collection('users').updateOne({_id: new ObjectId(req.session.passport.user)},
-                    {
-                        $set: {password: req.body.new_password}
-                    });
-                res.end();
+                user.password = req.body.new_password;
+                user.save(function(err){
+                    if(err) throw new Error('problem with changing password');
+                });
             }
+            res.end();
         });
     })
 };

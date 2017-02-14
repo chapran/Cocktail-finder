@@ -24,7 +24,7 @@
 }
 
 .users_form_btn:active{
-    background-color: #1ed0e7;
+    border: 1px inset #555555;
 }
 
 .sign_out_div{

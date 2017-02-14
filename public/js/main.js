@@ -578,9 +578,14 @@ function changePassword(form) {
         method: "POST",
         complete: function (jqXHR) {
                 var response = JSON.stringify(jqXHR.responseText);
-                console.log(response);
-                // $('#change_password_window').addClass('hidden')
-                //     .unbind();
+                if(JSON.parse(response)){
+                    generateMessage(JSON.parse(response))
+                } else{
+                    generateMessage("Password was changed successfully");
+                    $('#change_password_window').addClass('hidden')
+                        .unbind();
+                    $('.dropdown-content').slideUp('fast');
+                }
             }
     });
     return false;
