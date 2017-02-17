@@ -29,6 +29,7 @@ require('./controllers')(app);
 require('./controllers/account')(app);
 require('./controllers/db')(app);
 require('./controllers/addCocktailsController')(app);
+require('./controllers/favorites')(app);
 
 
 http.createServer(app).listen(3000, function () {  //creating the server

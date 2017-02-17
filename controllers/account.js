@@ -3,7 +3,8 @@ var User = require('../models/user').User,
     LocalStrategy = require('passport-local').Strategy,
     log = require('../lib/log')(module),
     mongoose = require('../lib/mongoose'),
-    ObjectId = mongoose.Types.ObjectId;
+    ObjectId = mongoose.Types.ObjectId,
+    auth = require('../lib/auth');
 
 module.exports = function (app) {
 
@@ -27,13 +28,6 @@ module.exports = function (app) {
             });
         }
     ));
-
-    var auth = function (req, res, next) {
-        if (!req.isAuthenticated())
-            res.sendStatus(401);
-        else
-            next();
-    };
 
     app.post('/login', passport.authenticate('local'), function (req, res) {
         res.statusCode = 200;
@@ -85,22 +79,22 @@ module.exports = function (app) {
         res.sendStatus(200);
     });
 
-    app.post('/change_password', function (req, res) {
+    app.post('/change_password', auth, function (req, res) {
         User.findOne({_id: new ObjectId(req.session.passport.user)}, function (err, user) {
-            if(err) throw error;
+            if (err) throw error;
 
-            if(!user) res.send('Not authorised');
+            if (!user) res.send('Not authorised');
 
             if (!user.checkPassword(req.body.old_password)) {
                 res.send('Password incorrect');
 
             } else {
                 user.password = req.body.new_password;
-                user.save(function(err){
-                    if(err) throw new Error('problem with changing password');
+                user.save(function (err) {
+                    if (err) throw new Error('problem with changing password');
                 });
             }
             res.end();
         });
-    })
+    });
 };

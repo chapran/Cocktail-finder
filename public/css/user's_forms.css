@@ -176,11 +176,6 @@ label{
     display: inline;
 }
 
-.ui-dialog{
-    border: 2px solid black;
-    font-weight: bold;
-}
-
 #change_password_window .fa-times{
     float: right;
     cursor: pointer;

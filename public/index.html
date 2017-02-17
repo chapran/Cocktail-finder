@@ -7,11 +7,11 @@
         <meta name="description" content="cocktail constructor">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/constructor.css">
         <link rel="stylesheet" href="css/user's_forms.css">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://use.fontawesome.com/8124c1aecb.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
 	    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -44,7 +44,7 @@
 					</button>
 	                <div class="dropdown-content" style="display: none;">
 		                <button id="change_password_button" type="button">Change password</button>
-		                <button type="button">Favorite cocktails</button>
+		                <button type="button" id="favorite_cocktails_button">Favorite cocktails</button>
 		                <button type="button" id="sign_out">Sign out</button>
 	                </div>
                 </div>
@@ -174,6 +174,9 @@
 		                </label>
 		                <button name='filter'>apply</button>
 	                </div>
+                    <div>
+	                    <button name='clear_filters' id="clear_filters">Clear filters</button>
+                    </div>
                 </div>
                 <div class='cocktails'>
                     <div class='catalogue centered'>
@@ -336,7 +339,12 @@
             <!-- Template for the selected cocktail -->
 
             <script type="text/template" id="single_cocktail_template">
-                <div class="selected_cocktail_image"><img src="<%-image%>" alt="<%-name%> image"></div>
+                <div class="selected_cocktail_image">
+	                <img src="<%-image%>" alt="<%-name%> image">
+	                <button class="favorite_toggle_button">
+		                <i class="fa fa-star-o fa-3x" aria-hidden="true"></i>
+	                </button>
+                </div>
                 <div class="selected_cocktail_details">
                     <div>
                         <h3 style="text-transform: uppercase">ABOUT THE <%-name%> COCKTAIL</h3>
@@ -365,7 +373,7 @@
                         <p><%-item%></p>
                         <% });%>
                     </div>
-                    <i class="fa fa-window-close fa-2x closebtn" aria-hidden="true"></i>
+	                <i class="fa fa-window-close fa-2x closebtn" aria-hidden="true"></i>
                 </div>
             </script>
 

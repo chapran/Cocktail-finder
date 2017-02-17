@@ -33,7 +33,8 @@ var schema = new Schema({
     created: {
         type: Date,
         default: Date.now
-    }
+    },
+    favorites: []
 });
 
 schema.methods.encryptPassword = function(password) {

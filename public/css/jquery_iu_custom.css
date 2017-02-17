@@ -1,0 +1,41 @@
+.ui-dialog{
+    font-weight: bold;
+    background-color: #effffc;
+}
+
+.ui-dialog > .ui-dialog-titlebar{
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+    background-color: transparent;
+}
+
+.ui-dialog-titlebar .ui-dialog-titlebar-close{
+    border: 1px solid black;
+    transition: 0.5s ease;
+    background-color: transparent;
+}
+
+.ui-dialog-titlebar .ui-dialog-titlebar-close:hover{
+    background-color: #ff7034;
+}
+
+.ui-dialog .ui-dialog-buttonset button{
+    margin: 0 7px 0;
+    background-color: #16e7e3;
+}
+
+.ui-dialog .ui-dialog-content{
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.ui-dialog .ui-dialog-buttonset button:hover{
+    background-color: #16b1ad;
+    transition: 0.5s ease;
+}
+
+.ui-dialog .ui-dialog-buttonpane{
+    border-top: 1px solid black;
+    background-color: transparent;
+}

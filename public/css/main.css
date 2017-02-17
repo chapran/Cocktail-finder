@@ -1,3 +1,5 @@
+@import "jquery_iu_custom.css";
+
 html{
     height:100%;
 }
@@ -6,9 +8,6 @@ body{
     min-height: 100%;
     position: relative;
     overflow-x: hidden;
-}
-.main_section, .catalogue{
-    background-color: whitesmoke;
 }
 
 /*Header styles*/
@@ -72,12 +71,12 @@ body{
     left: 0;
 }
 
-.closebtn {
+.closebtn{
+    font-size: 36px;
     cursor: pointer;
     position: absolute;
     top: 0;
     right: 25px;
-    font-size: 36px;
 }
 
 .search{
@@ -309,7 +308,6 @@ footer div {
 .filter button {
     margin: 0 1%;
     padding: 3px 20px;
-    border: 2px solid black;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -318,6 +316,11 @@ footer div {
 
 .filter button:hover {
     color: #e70110;
+}
+
+.filter button[name=filter]{
+    margin-left: 0;
+
 }
 
 .filter span{
@@ -427,12 +430,29 @@ footer div {
 }
 
 .selected_cocktail_image{
+    position: relative;
     flex: 1 1 250px;
 }
 
 .selected_cocktail_image img{
     border: 1px solid black;
     width: 100%;
+}
+
+.favorite_toggle_button{
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    border: none;
+    font-weight: bold;
+    background-color: transparent;
+    color: #000000;
+    text-shadow: 0 0 5px #fff;
+}
+
+.favorite_toggle_button.active{
+    color: #fffa00;
+    text-shadow: 0 0 5px #000000;
 }
 
 .selected_cocktail_details{

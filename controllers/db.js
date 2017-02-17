@@ -28,6 +28,14 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/get_cocktail_details', function (req, res) {
+        Cocktail.findOne({_id: req.query.cocktail}, function (err, cocktail) {
+            if(err) res.sendStatus(500);
+            res.send(cocktail);
+            res.end();
+        })
+    });
+
     app.get('/search', function (req, res) {
         var queryString = new RegExp(req.query.search, 'i'),
             foundByField = Cocktail.find().or([
