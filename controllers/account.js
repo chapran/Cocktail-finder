@@ -18,7 +18,6 @@ module.exports = function (app) {
                     return done(err);
                 }
                 if (!user) {
-                    debugger;
                     return done(null, false, {message: 'Incorrect username.'});
                 }
                 if (!user.checkPassword(password)) {
