@@ -29,7 +29,6 @@ module.exports = function (app) {
     ));
 
     app.post('/login', passport.authenticate('local'), function (req, res) {
-        res.statusCode = 200;
         res.send({status: 'OK'});
         res.end();
     });
