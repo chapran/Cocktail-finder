@@ -29,7 +29,7 @@ module.exports = function (app) {
     ));
 
     app.post('/login', passport.authenticate('local'), function (req, res) {
-        res.send({status: 'OK'});
+        res.sendStatus(200);
         res.end();
     });
 
@@ -68,6 +68,7 @@ module.exports = function (app) {
     app.post('/logout', function (req, res) {
         req.logOut();
         res.sendStatus(200);
+        res.end();
     });
 
 

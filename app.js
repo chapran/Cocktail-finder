@@ -32,7 +32,7 @@ require('./controllers/addCocktailsController')(app);
 require('./controllers/favorites')(app);
 
 
-http.createServer(app).listen(process.env.PORT ||3000, function () {  //creating the server
+http.createServer(app).listen(process.env.PORT || 3000, function () {  //creating the server
     log.info("server listening on port " + process.env.PORT || 3000)
 });
 
