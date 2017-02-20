@@ -76,7 +76,8 @@ module.exports = function (app) {
     app.get('/check_auth', auth, function (req, res) {
         var param = req.query.name;
         log.info(param);
-        res.sendStatus(200);
+        res.send({status: 'registered'});
+        res.end();
     });
 
     app.post('/change_password', auth, function (req, res) {

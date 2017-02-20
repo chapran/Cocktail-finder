@@ -3,19 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Project</title>
-        <meta name="description" content="cocktail constructor">
+        <title>Cocktail-finder</title>
+        <meta name="description" content="cocktail-finder">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="js/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/constructor.css">
         <link rel="stylesheet" href="css/user's_forms.css">
+        <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Architects+Daughter|Roboto" rel="stylesheet">
         <script src="https://use.fontawesome.com/8124c1aecb.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
 	    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
     </head>
     <body>
@@ -50,7 +51,7 @@
                 </div>
             </form>
             <h1 class="main_header">
-                <span onclick="window.location.hash = ''" style="cursor: pointer">Cocktail constructor</span>
+                <span onclick="window.location.hash = ''" style="cursor: pointer">Cocktail-finder</span>
             </h1>
             <span class='openbtn' onclick="openNav()">&#9776; open</span>
         </header>
@@ -204,12 +205,12 @@
 
             <div class="content hidden centered" id="about_page">
                 <article>
-                    <h1>Welcome to cocktail constructor!</h1>
+                    <h1>Welcome to Cocktail-finder!</h1>
                     <h2>
                         About our Website
                     </h2>
                     <p>
-                        Cocktail Constructor is web-resouce where any fan of exotic drinks, mixes of different flavors,
+                        Cocktail-finder is web-resouce where any fan of exotic drinks, mixes of different flavors,
                         or
                         just experimenter can get all the information which may be necessary about spirits, adds, types
                         of
@@ -298,11 +299,11 @@
 								<div id="tabs">
 									<p>You picked following ingredients:</p>
 								</div>
-								<button id="search_by_ingredients_button" class="round_button">Search your recipe!</button>
+								<button id="search_by_ingredients_button" class="constructor_nav_button">Search your recipe!</button>
                                 <i class="fa fa-question fa-2x" id="constructor_hint"></i>
                                 <blockquote class="oval-thought">
                                     <p>Choose any ingredients you'd like to use, and if there's
-                                        a cocktail with those in out database, we'll show it to you!</p>
+                                        a cocktail with those in our database, we'll show it to you!</p>
                                 </blockquote>
 							</div>
 						</div>
@@ -341,7 +342,7 @@
             <script type="text/template" id="single_cocktail_template">
                 <div class="selected_cocktail_image">
 	                <img src="<%-image%>" alt="<%-name%> image">
-	                <button class="favorite_toggle_button">
+	                <button class="favorite_toggle_button" title="add / remove from favorites">
 		                <i class="fa fa-star-o fa-3x" aria-hidden="true"></i>
 	                </button>
                 </div>
@@ -387,7 +388,7 @@
 
         <footer>
                 <div class="left_footer_container">
-                    <p class="copyright">Copyright &#169; Cocktail constructor 2016</p>
+                    <p class="copyright">Copyright &#169; Cocktail-finder 2016</p>
                     <p>By browsing this site, you confirm that you are over 18 years old.
                         Otherwise, leave the resource immediately.</p>
                 </div>

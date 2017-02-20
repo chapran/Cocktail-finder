@@ -13,7 +13,8 @@ var Cocktail = require('../models/cocktailsModel').Cocktail,
 
 module.exports = function (app) {
     app.post('/add_cocktail', upload.single('image'), function (req, res) {
-        saveToDB(req, res);
+        // saveToDB(req, res);
+        console.log(req.body)
     });
 };
 

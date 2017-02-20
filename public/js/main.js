@@ -14,6 +14,8 @@ function closeNav() {
 
 //other navbar functions
 
+$(document).tooltip();
+
 $('.catalogue_list_items').on('click', 'button', function () {
     var parent = $(this).parent();
     _.each(parent.siblings().find('.nav_menu_options'), function (item) {
@@ -26,13 +28,18 @@ $('.catalogue_list_items').on('click', 'button', function () {
 
 //registered user dropdown
 
-function toggleDropdown() {
-    $('.dropdown-content').slideToggle('fast');
-}
+(function setDropdownListeners() {
+    $('#users_dropdown_button').on('click', function(){
+        $('.dropdown-content').slideToggle('fast');
+    });
 
-$('#users_dropdown_button').on('click', function(){
-    toggleDropdown();
-});
+    $(document).on('click', function (e) {
+        if(!e.target.closest('#users_dropdown_button')){
+            $('.dropdown-content').slideUp('fast');
+        }
+    });
+})();
+
 
 $('#change_password_button').on('click', function () {
     var window = $('#change_password_window');
@@ -111,6 +118,17 @@ $.ajax({
         generateCocktails(jqXHR);
         generateConstructor();
         $(window).trigger('hashchange');
+    }
+});
+
+$.ajax({
+    url: "/check_auth",
+    method: "GET",
+    complete: function(jqXHR){
+        var response = JSON.parse(jqXHR.responseText).status;
+        if(response == 'not registered') {
+            deleteCookie('user');
+        }
     }
 });
 
@@ -259,21 +277,20 @@ function render(url) {
                 openRegisterForm();
             },
             '#add_cocktail': function () {
-                $.ajax({
-                    url: "/check_auth",
-                    method: "GET",
-                    complete: function(jqXHR){
-                        try {
-                        var response = JSON.parse(jqXHR.responseText).status;
-                        if(response == 'not registered') {
-                            generateMessage('Sorry, you must register or log in first');
-                            window.location.hash = previousHash || '';
-                        }
-                        } catch(err) {
-                            if(err.name == 'SyntaxError') showPage('#add_cocktail');
-                        }
-                    }
-                });
+                generateMessage('Sorry, this function is currently unavailable');
+                window.location.hash = previousHash || '';
+                // $.ajax({
+                //     url: "/check_auth",
+                //     method: "GET",
+                //     complete: function(jqXHR){
+                //         var response = JSON.parse(jqXHR.responseText).status;
+                //         if(response == 'not registered') {
+                //             generateMessage('Sorry, you must register or log in first');
+                //             window.location.hash = previousHash || '';
+                //         }
+                //         else showPage('#add_cocktail');
+                //     }
+                // });
             },
             '#favorites': function () {
                 getFavoriteCocktails();
@@ -467,7 +484,7 @@ function openRegisterForm() {
 
     $('body').on('click', function (e) {
         if (!container.hasClass('hidden')) {
-            if (!e.target.closest('.register')) {
+            if (!e.target.closest('.dropdown_users_form')) {
                 closeRegisterForm()
             }
         }
@@ -483,11 +500,27 @@ function generateMessage(message) {
     var jqMessage = $(document.createElement('div'));
     jqMessage.text(message);
     jqMessage.dialog({
+        title: "Alert",
         modal: true,
+        draggable: false,
+        resizable: false,
         buttons: {
             'Ok': function () {
-                $(this).dialog("destroy");
+                $(this).dialog("close");
             }
+        },
+        close: function () {
+            $(this).dialog('destroy')
+        },
+        show: {
+            effect: "bounce",
+            times: 1,
+            duration: 'normal'
+        },
+        hide: {
+            effect: "drop",
+            direction: 'down',
+            duration: 'fast'
         }
     })
 }
@@ -566,7 +599,7 @@ function searchRecipe() {
             var backButton = document.createElement('button');
             backButton.id = "back_to_constructor_button";
             $(backButton).text('Back to the constructor')
-                .addClass('round_button');
+                .addClass('constructor_nav_button');
             $('.main_section').append(backButton);
 
             $(backButton).on('click', function () {
@@ -645,7 +678,7 @@ $(document.forms.users_form).on('click', function (e) {
             statusCode: {
                 200: function () {
                     if(window.location.hash == '#favorites') window.location.hash = '';
-                    toggleDropdown();
+                    $('.dropdown-content').slideUp('fast');
                     signedIn(false);
                     deleteCookie('user');
                 }
@@ -660,23 +693,24 @@ $(document.forms.search_form).on('submit', function () {
     return false;
 });
 
-$(document.forms.add_cocktail_form).on('submit', function () {
-    var formData = new FormData(this);
-    $.ajax({
-        url: "/add_cocktail",
-        data: formData,
-        contentType: false,
-        processData: false,
-        method: "POST",
-        statusCode: {
-            200: function () {
-                window.location.hash = '';
-                generateMessage('Well done! your cocktail was added to the database');
-            }
-        }
-    });
-    return false;
-});
+// $(document.forms.add_cocktail_form).on('submit', function () {
+//     var formData = new FormData(this);
+//     console.log(formData);
+//     $.ajax({
+//         url: "/add_cocktail",
+//         data: formData,
+//         contentType: false,
+//         processData: false,
+//         method: "POST",
+//         statusCode: {
+//             200: function () {
+//                 window.location.hash = '';
+//                 generateMessage('Well done! your cocktail was added to the database');
+//             }
+//         }
+//     });
+//     return false;
+// });
 
 $('#search_by_ingredients_button').on('click', function () {
     var tabs = $('.singleTab'),
