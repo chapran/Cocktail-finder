@@ -52,7 +52,7 @@
             <h1 class="main_header">
                 <span onclick="window.location.hash = ''" style="cursor: pointer">Cocktail-finder</span>
             </h1>
-            <span class='openbtn' onclick="openNav()">&#9776; open</span>
+            <span class='openbtn' onclick="openNav()">&#9776;<span> open</span></span>
         </header>
         <nav class="sidenav">
             <span class="closebtn" onclick="closeNav()">&times;</span>
@@ -168,7 +168,7 @@
                         <button name='sort' value="size">Size</button>
                     </div>
 	                <div>
-		                <span>Filter by ingredients quantity:</span>
+		                <span>Ingredients quantity:</span>
 		                <label>
 			                <input id="i_quantity" type="number" min='2' max="6" name="quantity">
 		                </label>
@@ -202,7 +202,7 @@
                 </div>
             </div>
 
-            <div class="content hidden centered" id="about_page">
+            <div class="content centered" id="about_page" style="display: none;">
                 <article>
                     <h1>Welcome to Cocktail-finder!</h1>
                     <h2>
@@ -254,7 +254,7 @@
                 </article>
             </div>
 
-            <div class="content hidden centered" id="add_cocktail">
+            <div class="content centered" id="add_cocktail" style="display: none;">
                 <h1>Add your own cocktail here!</h1>
                 <h3>Please fill in the form to add a cocktail to our database</h3>
                 <form class="add_cocktail_form" name="add_cocktail_form">
@@ -289,7 +289,7 @@
                 </form>
             </div>
 
-            <div class="content hidden centered" id="constructor_page">
+            <div class="content centered" id="constructor_page" style="display: none;">
                 <div class="constructor_container">
 					<div>
 						<div id="picked_ingredients">
@@ -299,11 +299,13 @@
 									<p>You picked following ingredients:</p>
 								</div>
 								<button id="search_by_ingredients_button" class="constructor_nav_button">Search your recipe!</button>
-                                <i class="fa fa-question fa-2x" id="constructor_hint"></i>
-                                <blockquote class="oval-thought">
-                                    <p>Choose any ingredients you'd like to use, and if there's
-                                        a cocktail with those in our database, we'll show it to you!</p>
-                                </blockquote>
+                                <div class="hint_holder">
+                                    <i class="fa fa-question fa-2x" id="constructor_hint"></i>
+                                    <blockquote class="oval-thought">
+                                        <p>Choose any ingredients you'd like to use, and if there's
+                                            a cocktail with those in our database, we'll show it to you!</p>
+                                    </blockquote>
+                                </div>
 							</div>
 						</div>
 						<div class="ingredients_container base_spirit_container">
@@ -331,63 +333,63 @@
 	                </div>
                 </div>
             </div>
-        </div>
 
-        <div class="selected_cocktail_holder hidden">
-            <div class="selected_cocktail"></div>
+            <div class="selected_cocktail_holder centered" style="display: none;">
+                <div class="selected_cocktail"></div>
 
-            <!-- Template for the selected cocktail -->
+                <!-- Template for the selected cocktail -->
 
-            <script type="text/template" id="single_cocktail_template">
-                <div class="selected_cocktail_image">
-	                <img src="<%-image%>" alt="<%-name%> image">
-	                <button class="favorite_toggle_button" title="add / remove from favorites">
-		                <i class="fa fa-star-o fa-3x" aria-hidden="true"></i>
-	                </button>
-                </div>
-                <div class="selected_cocktail_details">
-                    <div>
-                        <h3 style="text-transform: uppercase">ABOUT THE <%-name%> COCKTAIL</h3>
-                        <%about.forEach(function (item) {%>
-                        <p><%-item%></p>
-                        <% });%>
+                <script type="text/template" id="single_cocktail_template">
+                    <div class="selected_cocktail_image">
+                        <img src="<%-image%>" alt="<%-name%> image">
+                        <button class="favorite_toggle_button" title="add / remove from favorites">
+                            <i class="fa fa-star-o fa-3x" aria-hidden="true"></i>
+                        </button>
                     </div>
-                    <div id="ingredients">
-                        <h3>Ingredients:</h3>
-                        <table>
-                            <%ingredients.forEach(function (item) {%>
-                            <tr>
-                                <td><%-item.quantity%></td>
-                                <td><%-item.ingr%></td>
-                            </tr>
+                    <div class="selected_cocktail_details">
+                        <div>
+                            <h3 style="text-transform: uppercase">ABOUT THE <%-name%> COCKTAIL</h3>
+                            <%about.forEach(function (item) {%>
+                            <p><%-item%></p>
                             <% });%>
-                        </table>
-                        <div id="glass">
-                            <h3>Glass:</h3>
-                            <span><%-glass%></span>
                         </div>
+                        <div id="ingredients">
+                            <h3>Ingredients:</h3>
+                            <table>
+                                <%ingredients.forEach(function (item) {%>
+                                <tr>
+                                    <td><%-item.quantity%></td>
+                                    <td><%-item.ingr%></td>
+                                </tr>
+                                <% });%>
+                            </table>
+                            <div id="glass">
+                                <h3>Glass:</h3>
+                                <span><%-glass%></span>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="details">How-to-make details</span>
+                            <%details.forEach(function (item) {%>
+                            <p><%-item%></p>
+                            <% });%>
+                        </div>
+                        <i class="fa fa-window-close fa-2x closebtn" aria-hidden="true"></i>
                     </div>
-                    <div>
-                        <span class="details">How-to-make details</span>
-                        <%details.forEach(function (item) {%>
-                        <p><%-item%></p>
-                        <% });%>
-                    </div>
-	                <i class="fa fa-window-close fa-2x closebtn" aria-hidden="true"></i>
-                </div>
-            </script>
+                </script>
 
-            <!--End of template-->
+                <!--End of template-->
 
+            </div>
         </div>
 
-        <div class="error_page hidden centered">
+        <div class="error_page centered" style="display: none;">
             <h3>Sorry, wrong url!</h3>
         </div>
 
         <footer>
                 <div class="left_footer_container">
-                    <p class="copyright">Copyright &#169; Cocktail-finder 2016</p>
+                    <p class="copyright">Copyright &#169; Cocktail-finder 2016.</p>
                     <p>By browsing this site, you confirm that you are over 18 years old.
                         Otherwise, leave the resource immediately.</p>
                 </div>

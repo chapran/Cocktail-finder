@@ -19,25 +19,33 @@
     display: inline-block;
     position: relative;
     border: 2px solid #A5A5A5;
-    height: 375px;
-    width: 600px;
+    height: 100%;
+    max-width: 600px;
     margin-left: 5px;
 }
 
 #picked_ingredients > img{
+    display: block;
     opacity: 0.7;
-    height: 100%;
+    width: 100%;
+    height: auto;
 }
 
 #picked_ingredients > div{
-    height: 375px;
-    width: 600px;
+    height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
 }
 #tabs {
     padding: 5px;
     width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#tabs p{
+    margin: 1.5% auto;
 }
 .singleTab{
     color: #1021e3;
@@ -58,7 +66,7 @@
 }
 
 #search_by_ingredients_button{
-    width: 300px;
+    width: 50%;
     font-size: 30px;
     position: absolute;
     bottom: 5px;
@@ -67,10 +75,10 @@
 
 .oval-thought {
     position: absolute;
+    margin-left: 0;
     width: 200px;
     padding: 20px 35px;
-    bottom: 55px;
-    left: 265px;
+    bottom: 45px;
     text-align: center;
     color: #fff;
     background: #075698;
@@ -86,8 +94,8 @@
 .oval-thought:before {
     content:"";
     position: absolute;
-    bottom:-25px;
-    left:50px;
+    bottom:-20px;
+    left: 40px;
     width:30px;
     height:30px;
     background:#075698;
@@ -99,18 +107,21 @@
     content:"";
     position:absolute;
     bottom:-35px;
-    left:30px;
+    left: 25px;
     width:15px;
     height:15px;
     background:#075698;
     border-radius:15px;
 }
 
-#constructor_hint{
-    color: #001cce;
+.hint_holder{
     position: absolute;
     bottom: 5px;
-    left: 310px;
+    left: 52%;
+}
+
+#constructor_hint{
+    color: #001cce;
     text-shadow: 1px 1px 2px #373737;
 }
 
@@ -119,11 +130,8 @@
 }
 
 .ingredients_ul {
-    /*background-color: #16e7e3;*/
     padding-left: 0;
-    /*border: 1px solid black;*/
     list-style: none;
-    /*text-align: center;*/
 }
 
 .ingredients_container:not(.base_spirit_container) ul{
@@ -182,12 +190,11 @@
 }
 
 #back_to_constructor_button{
-    -ms-transform: rotate(90deg); /* IE 9 */
-    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-    transform: rotate(90deg);
-    height: 50px;
-    line-height: 50px;
     position: absolute;
-    right: -110px;
-    top: 130px;
+    right: -15px;
+    top: 30px;
+    height: 40px;
+    line-height: 100%;
+    width: 40px;
+    border-radius: 50%;
 }

@@ -1,4 +1,14 @@
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+@media screen and (max-width: 1530px){
+    .base_spirit_container{
+        margin: auto;
+    }
+    .base_spirit_container .ingredients_ul > li{
+        display: inline-block;
+    }
+}
+
 @media screen and (max-width: 1200px) {
     .selected_cocktail {
         top: 5%;
@@ -14,6 +24,9 @@
     .right_footer_container{
         width: 385px;
     }
+    #search_by_ingredients_button{
+        font-size: 20px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -27,18 +40,146 @@
         top: 0;
         height: 100%;
     }
+    .filter > div{
+        display: inline-block;
+        width: 100%;
+    }
+    .filter [value=name]{  margin-right: 0;  }
+    .filter [value=size]{  margin-left: 0;  }
+
+    .oval-thought{
+        width: 151px;
+        font-size: 14px;
+    }
+    .oval-thought::before{
+        width: 25px;
+        height: 25px;
+        bottom: -20px;
+        left: 40px;
+    }
+    .oval-thought::after{
+        width: 12px;
+        height: 12px;
+        bottom: -30px;
+    }
     .left_footer_container,
     .right_footer_container{
         width: 100%;
         text-align: center;
     }
+    .left_footer_container *{
+        display: inline;
+    }
+    .right_footer_container i{
+        font-size: 1.5em;
+    }
 }
 
-@media screen and (max-width: 1530px){
-    .base_spirit_container{
-        margin: auto;
+@media screen and (max-width: 450px) {
+    .main_header{
+        font-size: 2em;
     }
-    .base_spirit_container .ingredients_ul > li{
+    .users_form{
+        margin-left: 40px;
+    }
+    .dropdown_users_form label:not(.error),
+    .dropdown_users_form input:not([type=submit]){
+        text-align: center;
+        width: 90%;
+    }
+    .dropdown_users_form label:not(.error){
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+    .dropdown_users_form .dropdown_form_button_container{
+        margin-bottom: 0;
+    }
+    .openbtn span{
+        display: none;
+    }
+    .main_section{
+        padding-bottom: 125px;
+    }
+    .constructor_container{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #tabs {
+        height: calc(100% - 40px);
+        overflow-y: scroll;
+    }
+    #search_by_ingredients_button{
+        font-size: 14px;
+    }
+    .oval-thought{
+        width: 110px;
+        font-size: 10px;
+    }
+    .oval-thought::before{
+        width: 20px;
+        height: 20px;
+        bottom: -17px;
+        left: 35px;
+    }
+    .oval-thought::after{
+        width: 10px;
+        height: 10px;
+        bottom: -25px;
+    }
+    .ingredients_container h1{
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+    .ingredients_ul{
+        margin-top: 0;
+    }
+    .ingredients_ul li{
+        height: 28px;
+        font-size: 14px;
+        margin: 5px 0;
+    }
+    .ingredients_container:not(.base_spirit_container) li{
+        margin: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+    }
+    .ingredients_ul li span{
+        line-height: 28px;
+    }
+}
+
+@media screen and (max-height: 700px){
+    .sidenav{
+        padding-top: 10px;
+        width: 100%;
+        left: -100%;
+        z-index: 4;
+        text-align: center;
+    }
+    .search input{
+        display: block;
+    }
+    .search input:focus{
+        width: 80%;
+    }
+    .main_menu_list{
+        margin: 0 auto;
+
+    }
+    .main_menu_links{
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 20px;
+    }
+    .catalogue_list_items button{
+        padding: 5px 10px;
+        margin-left: 0;
+    }
+    .add_cocktail_button{
         display: inline-block;
+        margin-top: 15px;
+        box-sizing: border-box;
+        width: initial;
     }
 }

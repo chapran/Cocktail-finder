@@ -141,7 +141,7 @@ function getCollection(path) {
         }
     });
     hideViews();
-    $('#all_cocktails').removeClass('hidden');
+    $('#all_cocktails').fadeIn();
 }
 
 function generateCocktails(data) {
@@ -227,13 +227,13 @@ function setCollectionHeading() {
 }
 
 function hideViews() {
-    [
-        $('#register_window'),
+    [   $('.error_page'),
         $('.selected_cocktail_holder'),
         $('.main_section').children()
     ].forEach(function (item) {
-        item.addClass('hidden');
-    })
+        item.fadeOut(0);
+    });
+    $('#register_window').addClass('hidden')
 }
 
 $(window).on('hashchange', function () {
@@ -305,7 +305,7 @@ function render(url) {
         getSearchQuery(query)
     } else {
         hideViews();
-        $('.error_page').removeClass('hidden');
+        $('.error_page').fadeIn();
     }
 
     if (openedNav) closeNav();
@@ -431,11 +431,7 @@ function generateConstructor() {
 }
 
 function renderCocktailInfo(id) {
-    var cocktailsWindow = $('#all_cocktails');
-    if (cocktailsWindow.hasClass('.hidden')) {
-        $('.main_section').children().addClass('hidden');
-        cocktailsWindow.removeClass('hidden')
-    }
+        hideViews();
     var container = $('.selected_cocktail'),
         parent = container.parent();
 
@@ -451,14 +447,14 @@ function renderCocktailInfo(id) {
             container.empty();
             container.append(templateFunction(cocktailDetails));
             checkIfFavorite(id);
-            parent.removeClass('hidden');
+            parent.fadeIn();
         }
     }).then(function(){
         parent.on('click', function (e) {
-            if (!parent.hasClass('hidden')) {
+            if (!(parent.css('display') == 'none')) {
                 var clicked = $(e.target);
                 if (clicked.hasClass('closebtn') || clicked.hasClass('selected_cocktail_holder')) {
-                    parent.addClass('hidden');
+                    parent.fadeOut(0);
                     window.location.hash = previousHash || '';
                 }
             }
@@ -475,7 +471,7 @@ function renderCocktailInfo(id) {
 
 function showPage(id) {
     hideViews();
-    $(id).removeClass('hidden');
+    $(id).fadeIn();
 }
 
 function openRegisterForm() {
@@ -594,11 +590,12 @@ function searchRecipe() {
         complete: function (jqXHR) {
             generateCocktails(jqXHR);
             hideViews();
-            $('#all_cocktails').removeClass('hidden');
+            $('#all_cocktails').fadeIn();
 
             var backButton = document.createElement('button');
             backButton.id = "back_to_constructor_button";
-            $(backButton).text('Back to the constructor')
+            $(backButton).html('<i class="fa fa-undo" aria-hidden="true"></i>')
+                .attr('title', 'Back to the constructor')
                 .addClass('constructor_nav_button');
             $('.catalogue').append(backButton);
 

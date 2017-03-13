@@ -50,7 +50,8 @@
     border: none;
 }
 
-.dropdown-content button:hover {background-color: #ebebeb
+.dropdown-content button:hover {
+    background-color: #ebebeb
 }
 
 .register_proposition{
@@ -83,8 +84,10 @@
 .dropdown_users_form {
     position: absolute;
     right: 0;
-    width: 500px;
-    margin: 30px;
+    width: calc(100% - 50px);
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 25px;
     padding: 10px;
     border: 7px solid #2d75e7;
     border-radius: 10px;
@@ -121,10 +124,7 @@ label{
     color: red;
 }
 
-.dropdown_users_form input[type=text],
-.dropdown_users_form input[type=password],
-.dropdown_users_form input[type=email]
-{
+.dropdown_users_form input:not([type=submit]) {
     width: 65%;
     padding: 5px;
     font-size: 0.9em;
