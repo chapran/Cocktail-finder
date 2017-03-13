@@ -1,5 +1,10 @@
 //sidenav animation
 
+$(window).on('load', function() {
+    $(".loaderInner").fadeOut();
+    $(".loader").delay(800).fadeOut("slow");
+});
+
 var openedNav = false;
 function openNav() {
     $(".sidenav").addClass('opened');

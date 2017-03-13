@@ -12,6 +12,31 @@ body{
     position: relative;
     overflow-x: hidden;
 }
+.loader {
+    background: none repeat scroll 0 0 #FAFAFA;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9999; }
+
+.loader_inner {
+    background-image: url("../img/preloader.gif");
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #FAFAFA;
+    height: 200px;
+    width: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    left: 50%;
+    top: 50%;
+    position: absolute; }
 
 /*Header styles*/
 
