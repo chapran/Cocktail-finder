@@ -600,7 +600,7 @@ function searchRecipe() {
             backButton.id = "back_to_constructor_button";
             $(backButton).text('Back to the constructor')
                 .addClass('constructor_nav_button');
-            $('.main_section').append(backButton);
+            $('.catalogue').append(backButton);
 
             $(backButton).on('click', function () {
                 $('#back_to_constructor_button').remove();

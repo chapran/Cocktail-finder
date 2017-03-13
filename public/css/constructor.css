@@ -187,22 +187,7 @@
     transform: rotate(90deg);
     height: 50px;
     line-height: 50px;
-    position: fixed;
-    right: 10%;
-    top: 50%;
-}
-
-@media screen and (max-height: 650px) {
-    #back_to_constructor_button {
-        top: 330px;
-    }
-}
-
-@media screen and (max-width: 1530px){
-    .base_spirit_container{
-        margin: auto;
-    }
-    .base_spirit_container .ingredients_ul > li{
-        display: inline-block;
-    }
+    position: absolute;
+    right: -110px;
+    top: 130px;
 }

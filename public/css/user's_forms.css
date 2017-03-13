@@ -38,7 +38,7 @@
     min-width: 160px;
     overflow: auto;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 2;
 }
 
 .dropdown-content button {
@@ -68,7 +68,7 @@
 }
 
 .dropdown_users_form_container {
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -137,10 +137,14 @@ label{
     /*outline: none;*/
 }
 
+.dropdown_form_button_container{
+    text-align: center;
+
+}
+
 .dropdown_users_form .button {
     position: relative;
     color: black;
-    left: 40%;
     font-size: 1em;
     border-radius: 5px;
     padding: 10px;

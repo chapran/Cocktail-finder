@@ -1,3 +1,5 @@
+@import "constructor.css";
+@import "user's_forms.css";
 @import "jquery_iu_custom.css";
 
 html{
@@ -15,7 +17,6 @@ body{
 
 .header_holder {
     position: relative;
-    z-index: 1;
     background: -webkit-linear-gradient(top, #ff8a00, #c60000); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(bottom, #ff8a00, #c60000); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(bottom, #ff8a00, #c60000); /* For Firefox 3.6 to 15 */
@@ -202,78 +203,28 @@ body{
     text-shadow: 0 0 2px #fcff81;
 }
 
-            /* footer */
+/*ABOUT PAGE STYLES*/
 
-footer {
-    color: #fff;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    min-height: 50px;
-    background-color: #222;
-    z-index: 3;
+#about_page h1{
+    font-size: 40px;
 }
-
-footer div {
-    width: 50%;
-    box-sizing: border-box;
-    margin-top: 10px;
+.social_networks{
+    list-style: none;
 }
-
-.left_footer_container {
-    padding-left: 10px;
-    float: left;
-    font-size: 0.7em;
+.sn_list_items{
+    margin: 5px auto 5px auto;
 }
-
-.left_footer_container p {
-    margin: 0;
+.sn_list_items a{
+    color: black;
+    text-decoration: none;
+    transition: 0.5s;
 }
-
-.right_footer_container {
-    float: right;
-    text-align: right;
-    padding-right: 2%;
+.sn_list_items a:hover{
+    font-size: 20px;
 }
-
-.fa-facebook {
-    color: #3B5998;
-}
-
-.fa-twitter {
-    color: #4099FF;
-}
-
-.fa-vk {
-    color: #fff;
-}
-
-.fa-instagram {
-    color: #ba1dff;
-}
-
-.fa-youtube-play {
-    color: red;
-}
-
-.fa-vine {
-    color: #00a478;
-}
-
-.fa-flickr {
-    color: #ff0084;
-}
-
-.fa {
-    opacity: 0.7;
-    transition: 1s;
-    -webkit-transition: 1s;
-}
-
-.fa:hover {
-    opacity: 1;
-    transition: 1s;
-    -webkit-transition: 1s;
+.sn_list_items img{
+    height: 40px;
+    vertical-align: middle;
 }
 
                 /*Catalogue content*/
@@ -300,6 +251,7 @@ footer div {
     box-shadow: 0 1px 5px 1px;
     text-align: right;
     background-color: silver;
+    z-index: 1;
 }
 
 .filter > *{
@@ -328,6 +280,7 @@ footer div {
 }
 
 .catalogue {
+    position: relative;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -348,7 +301,7 @@ footer div {
 .wrap_image {
     position: relative;
     flex: 1 1 230px;
-    border-radius: 5%;
+    /*border-radius: 5%;*/
     border: 2px inset #7b7b7b;
     overflow: hidden;
 }
@@ -413,12 +366,11 @@ footer div {
 
 .selected_cocktail {
     background-color: #16e7e3;
-    margin-top: 5px;
     position: absolute;
     top: 10%;
     right: 0;
     box-sizing: border-box;
-    width: 70%;
+    width: 80%;
     border: 1px solid black;
     padding: 10px;
     display: flex;
@@ -457,6 +409,10 @@ footer div {
 
 .selected_cocktail_details{
     flex: 2 1 450px;
+}
+
+.selected_cocktail_details p{
+    margin: 8px;
 }
 
 #ingredients{
@@ -509,7 +465,7 @@ footer div {
 }
 
 .details.opened_details ~ p{
-    margin: 8px;
+    margin: 4px;
     display: block;
 }
 
@@ -517,57 +473,88 @@ footer div {
     content: '- ';
 }
 
-
-            /*ABOUT PAGE STYLES*/
-
-#about_page h1{
-    font-size: 40px;
-}
-.social_networks{
-    list-style: none;
-}
-.sn_list_items{
-    margin: 5px auto 5px auto;
-}
-.sn_list_items a{
-    color: black;
-    text-decoration: none;
-    transition: 0.5s;
-}
-.sn_list_items a:hover{
-    font-size: 20px;
-}
-.sn_list_items img{
-    height: 40px;
-    vertical-align: middle;
-}
-
 .error_page h3{
     font-size: 40px;
 }
+
+
+/* footer */
+
+footer {
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    min-height: 50px;
+    background-color: #222;
+    z-index: 3;
+}
+
+footer div {
+    width: 50%;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.left_footer_container {
+    padding-left: 10px;
+    float: left;
+    font-size: 0.7em;
+}
+
+.left_footer_container p {
+    margin: 0;
+}
+
+.right_footer_container {
+    float: right;
+    text-align: right;
+    padding-right: 1%;
+}
+
+.fa-facebook {
+    color: #3B5998;
+}
+
+.fa-twitter {
+    color: #4099FF;
+}
+
+.fa-vk {
+    color: #fff;
+}
+
+.fa-instagram {
+    color: #ba1dff;
+}
+
+.fa-youtube-play {
+    color: red;
+}
+
+.fa-vine {
+    color: #00a478;
+}
+
+.fa-flickr {
+    color: #ff0084;
+}
+
+.fa {
+    opacity: 0.7;
+    transition: 1s;
+    -webkit-transition: 1s;
+}
+
+.fa:hover {
+    opacity: 1;
+    transition: 1s;
+    -webkit-transition: 1s;
+}
+
 
         /*class for hidden elements*/
 
 .hidden{
     display: none;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-width: 1280px) {
-    .selected_cocktail {
-        font-size: .8em;
-        width: 100%;
-    }
-}
-
-@media all and (max-width: 970px) {
-    .main_section{
-        padding-bottom: 80px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .centered{
-        width: 90%;
-    }
 }

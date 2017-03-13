@@ -1,0 +1,44 @@
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-width: 1200px) {
+    .selected_cocktail {
+        top: 5%;
+        font-size: .8em;
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 992px) {
+    .main_section{
+        padding-bottom: 80px;
+    }
+    .right_footer_container{
+        width: 385px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main_header{
+        font-size: 3em;
+    }
+    .centered{
+        width: 90%;
+    }
+    .selected_cocktail {
+        top: 0;
+        height: 100%;
+    }
+    .left_footer_container,
+    .right_footer_container{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 1530px){
+    .base_spirit_container{
+        margin: auto;
+    }
+    .base_spirit_container .ingredients_ul > li{
+        display: inline-block;
+    }
+}
