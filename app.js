@@ -23,14 +23,13 @@ if(app.get('env') == 'development'){  //logger
     app.use(logger('dev'));
 } else app.use(logger('default'));
 
-app.use(express.static(__dirname + '/public')); //static dirname for public files
-
 require('./controllers')(app);
 require('./controllers/account')(app);
 require('./controllers/db')(app);
 require('./controllers/addCocktailsController')(app);
 require('./controllers/favorites')(app);
 
+app.use(express.static(__dirname + '/public')); //static dirname for public files
 
 http.createServer(app).listen(process.env.PORT || 3000, function () {  //creating the server
     log.info("server listening on port " + process.env.PORT || 3000)

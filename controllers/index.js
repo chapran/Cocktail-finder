@@ -2,9 +2,8 @@ var fs = require('fs');
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
-        var file = new fs.ReadStream('index.html');
+        var file = new fs.ReadStream('public/index.html');
         sendFile(file, res);
-        res.end();
     });
 };
 
